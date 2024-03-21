@@ -29,9 +29,7 @@
               </RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/"
-                >回到前台
-              </RouterLink>
+              <RouterLink class="nav-link" to="/">回到前台 </RouterLink>
             </li>
           </ul>
           <ul class="navbar-nav d-flex ms-auto">

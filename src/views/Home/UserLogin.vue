@@ -8,7 +8,7 @@
               :to="{ name: 'Home' }"
               class="text text-decoration-none"
             >
-              <h2 class=" display-4 text-center fw-bold text">Pixel Missions</h2>
+              <h2 class="display-4 text-center fw-bold text">Pixel Missions</h2>
             </router-link>
             <p class="text-center text-secondary">接案的好幫手</p>
             <hr />

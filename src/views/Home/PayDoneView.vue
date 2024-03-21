@@ -1,8 +1,6 @@
 <template lang="">
   <div>
-    <div class="container">
-      付款完成
-    </div>
+    <div class="container">付款完成</div>
   </div>
 </template>
 <script>

@@ -100,7 +100,12 @@ import UserState from '@/stores/UserState.js'
 // import toastr from "toastr";
 
 const state = ['userName', 'userEmail', 'userID', 'userHasLogIn', 'AdminToken']
-const actions = ['checkUserLogin', 'UserLogout', 'AdminTokenCheck', 'getAlldata']
+const actions = [
+  'checkUserLogin',
+  'UserLogout',
+  'AdminTokenCheck',
+  'getAlldata'
+]
 
 export default {
   name: 'FontView',
