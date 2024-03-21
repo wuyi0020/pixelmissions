@@ -10,15 +10,19 @@
         </div> -->
         <div class="col-12">
           <div class="container">
-            <div class="row">
+            <div class="row align-items-center">
               <div class="col-8">
-                <h2 class="fs-1 pt-5">累積粉絲 尋找合作機會？</h2>
-                <h2 class="fs-1 pb-5">使用 Pixel Missions 滿足這一切</h2>
+                <h2 class="fs-3 pt-5 text-break mw-100">
+                  累積粉絲 尋找合作機會？
+                </h2>
+                <h2 class="fs-3 pb-5 text-break mw-100">
+                  使用 Pixel Missions 滿足這一切
+                </h2>
               </div>
-              <div class="col-4 overflow-hidden" style="max-height: 400px">
+              <div class="col-4 overflow-hidden">
                 <img
                   src="/resources/vadim-bogulov-cZveUvrezvY-unsplash.jpg"
-                  class="img-fluid object-fit-cover"
+                  class="img-container object-fit-cover"
                   style="object-position: 0%, 50%"
                 />
               </div>
@@ -54,7 +58,7 @@
                 <div>
                   <img
                     src="/resources/transistor-physician-giving-a-prescription-and-pill.png"
-                    height="400px"
+                    height="300px"
                     class="object-fit-cover object-position-50 aspect-ratio-1x1"
                   />
                 </div>
@@ -65,7 +69,7 @@
                 <div>
                   <img
                     src="/resources/transistor-boy-and-girl-drawing-at-the-childrens-table.png"
-                    height="400px"
+                    height="300px"
                     class="object-fit-scale object-position-50 aspect-ratio-1x1"
                   />
                 </div>
@@ -77,7 +81,7 @@
                   <img
                     src="/resources/transistor-autumn-walk.png"
                     class="object-fit-cover object-position-50 aspect-ratio-1x1"
-                    height="400px"
+                    height="300px"
                   />
                 </div>
                 <h1>約稿沒保障?</h1>
