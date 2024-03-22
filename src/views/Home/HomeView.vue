@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="container-fluid bg bg-light bg-opacity-75 bg-5dot">
-      <div class="row vh-50 align-content-center">
+      <div class="row vh-50 align-content-center m-0">
         <!-- <div
           v-if="!userHasLogIn"
           class="col-12 pt-3 text-end bg-body-secondary"
@@ -58,8 +58,7 @@
                 <div>
                   <img
                     src="/resources/transistor-physician-giving-a-prescription-and-pill.png"
-                    height="300px"
-                    class="object-fit-cover object-position-50 aspect-ratio-1x1"
+                    class="object-fit-cover object-position-50 aspect-ratio-1x1 w-100"
                   />
                 </div>
                 <h1>找不到人合作?</h1>
@@ -69,8 +68,7 @@
                 <div>
                   <img
                     src="/resources/transistor-boy-and-girl-drawing-at-the-childrens-table.png"
-                    height="300px"
-                    class="object-fit-scale object-position-50 aspect-ratio-1x1"
+                    class="object-fit-scale object-position-50 aspect-ratio-1x1 w-100"
                   />
                 </div>
                 <h1>想累積粉絲?</h1>
@@ -80,8 +78,7 @@
                 <div>
                   <img
                     src="/resources/transistor-autumn-walk.png"
-                    class="object-fit-cover object-position-50 aspect-ratio-1x1"
-                    height="300px"
+                    class="object-fit-cover object-position-50 aspect-ratio-1x1 w-100"
                   />
                 </div>
                 <h1>約稿沒保障?</h1>
