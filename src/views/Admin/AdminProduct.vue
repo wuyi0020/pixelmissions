@@ -31,7 +31,7 @@
                     <td>
                       <img
                         :src="item.imageUrl"
-                        alt=""
+                        alt="作品圖片"
                         width="200"
                         class="mw-100"
                       />
@@ -89,7 +89,7 @@
                     <td>
                       <img
                         :src="item.imageUrl"
-                        alt=""
+                        alt="方案圖片"
                         width="200"
                         class="mw-100"
                       />
@@ -147,7 +147,7 @@
                     <td>
                       <img
                         :src="item.imageUrl"
-                        alt=""
+                        alt="使用者圖片"
                         width="200"
                         class="mw-100"
                       />
@@ -197,7 +197,7 @@
             <div class="row align-items-center mb-2">
               <img
                 :src="tempProduct.imageUrl"
-                alt=""
+                alt="修改圖片"
                 width="200"
                 class="mw-100 col-12"
               />
@@ -354,55 +354,41 @@ export default {
       })
     },
     editProduct (item) {
-      console.log(editModal)
       editModal.show()
-      console.log(item)
       this.tempProduct = { ...item }
-      // this.tempProduct = item;
     },
     editProductSave () {
-      console.log(this.tempProduct)
       const product = JSON.parse(this.tempProduct)
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${product.id}`
       axios.defaults.headers.common.Authorization =
         this.getCookie('DashbordAdminToken')
 
-      console.log(product)
-      console.log(this.tempProduct)
       axios
         .put(url, { data: product })
         .then((response) => {
           toastr.success('修改成功')
-          console.log(response)
 
           editModal.hide()
         })
-        .catch((error) => {
+        .catch(() => {
           toastr.error('修改失敗')
-          console.log(error)
         })
       this.getAlldata(true)
     },
     deletProduct (item) {
       deletModal.show()
-      console.log(item.id)
       this.tempProduct = { ...item }
     },
     deletProductConfirm () {
       const key = this.tempProduct.id
-      console.log('delete')
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${key}`
       axios.defaults.headers.common.Authorization =
         this.getCookie('DashbordAdminToken')
       axios
         .delete(url)
-        .then((response) => {
-          console.log(response)
+        .then(() => {
           this.getAlldata(true)
           toastr.success('刪除成功')
-        })
-        .catch((error) => {
-          console.log(error)
         })
       deletModal.hide()
     }
@@ -420,8 +406,6 @@ export default {
       keyboard: true,
       backdrop: 'static'
     })
-
-    // console.log(editModal);
   }
 }
 </script>

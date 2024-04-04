@@ -46,6 +46,7 @@
 
 <script>
 import axios from 'axios'
+import toastr from 'toastr'
 
 const { VITE_URL } = import.meta.env
 
@@ -66,12 +67,11 @@ export default {
         /(?:(?:^|.*;\s*)DashbordAdminToken\s*=\s*([^;]*).*$)|^.*$/,
         '$1'
       )
-      console.log('token', token)
       if (!token) {
         this.$router.push('/admin/login')
-        console.log('請先登入')
+        toastr.warning('請先登入')
       } else {
-        console.log('已登入')
+        toastr.success('已登入')
       }
       this.checkAdmin(token)
     },

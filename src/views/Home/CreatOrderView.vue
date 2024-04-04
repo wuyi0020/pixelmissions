@@ -12,6 +12,7 @@
                   <img
                     :src="ThisComissionData.imageUrl"
                     class="img-fluid rounded-start-0 ratio-1x1 mh-100"
+                    alt="方案"
                   />
                 </div>
                 <div class="col-md-8 d-flex flex-column">
@@ -66,19 +67,19 @@
             rules="email|required"
             v-model="form.user.email"
           ></v-field>
-          <label for="email" class="floatingInput">Email</label>
+          <label for="email" class="form-label">電子郵件</label>
           <error-message name="email" class="invalid-feedback"></error-message>
         </div>
 
         <div class="mb-3">
-          <label for="name" class="form-label">收件人name</label>
+          <label for="name" class="form-label">收件人名稱</label>
           <v-field
             id="name"
             name="name"
             type="text"
             class="form-control"
             :class="{ 'is-invalid': errors['name'] }"
-            placeholder="請輸入name"
+            placeholder="請輸入名稱"
             rules="required"
             v-model="form.user.name"
           ></v-field>
@@ -86,14 +87,14 @@
         </div>
 
         <div class="mb-3">
-          <label for="tel" class="form-label">收件人phone</label>
+          <label for="tel" class="form-label">收件人電話</label>
           <v-field
             id="tel"
             name="phone"
             type="text"
             class="form-control"
             :class="{ 'is-invalid': errors['phone'] }"
-            placeholder="請輸入phone"
+            placeholder="請輸入電話"
             rules="required|min:8|max:10"
             v-model="form.user.tel"
           ></v-field>
@@ -101,14 +102,14 @@
         </div>
 
         <div class="mb-3">
-          <label for="address" class="form-label">收件人address</label>
+          <label for="address" class="form-label">收件人地址</label>
           <v-field
             id="address"
             name="address"
             type="text"
             class="form-control"
             :class="{ 'is-invalid': errors['address'] }"
-            placeholder="請輸入address"
+            placeholder="請輸入地址"
             rules="required"
             v-model="form.user.address"
           ></v-field>

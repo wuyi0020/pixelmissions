@@ -7,11 +7,16 @@
       <div
         class="col-12 rounded-top-4 col-md-9 bg-dark-subtle rounded-top-2 text-center"
       >
-        <img width="500" class="mw-100" :src="art.imageUrl" alt="" />
+        <img width="500" class="mw-100" :src="art.imageUrl" :alt="art.id" />
       </div>
       <div class="col-3 d-none d-sm-none d-md-block">
         <div class="d-flex position-relative align-items-center">
-          <img width="50" :src="author.imageUrl" class="rounded-circle" />
+          <img
+            width="50"
+            :src="author.imageUrl"
+            class="rounded-circle"
+            alt="作者"
+          />
           <p class="px-2 m-0 text-center user-select-none">
             {{ author.title }}
           </p>
@@ -76,7 +81,12 @@
       <div class="col-12 col-md-9 py-3 bg-dark-subtle">
         <div class="d-flex align-items-center">
           <div class="d-flex position-relative align-items-center">
-            <img width="50" :src="author.imageUrl" class="rounded-circle" />
+            <img
+              width="50"
+              :src="author.imageUrl"
+              class="rounded-circle"
+              alt="作者"
+            />
             <p class="px-2 m-0 text-center user-select-none">
               {{ author.title }} {{ author.fans }}
             </p>
@@ -125,7 +135,7 @@
               height="150"
               width="150"
               class="mh-100 object-position-50 object-fit-cover"
-              alt=""
+              alt="作品圖片"
             />
 
             <router-link :to="`/art/${item.id}`" class="stretched-link">

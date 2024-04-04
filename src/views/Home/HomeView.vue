@@ -24,6 +24,7 @@
                   src="/resources/vadim-bogulov-cZveUvrezvY-unsplash.jpg"
                   class="img-container object-fit-cover"
                   style="object-position: 0%, 50%"
+                  alt="主頁圖片"
                 />
               </div>
             </div>
@@ -45,7 +46,7 @@
           :key="item.id"
           class="rounded-bottom col ratio-1x1"
         >
-          <ArtComponent :item="item" :showAuthor="true" />
+          <ArtComponent :item="item" :showAuthor="true" :datas="Alldata" />
         </div>
       </div>
     </div>
@@ -59,6 +60,7 @@
                   <img
                     src="/resources/transistor-physician-giving-a-prescription-and-pill.png"
                     class="object-fit-cover object-position-50 aspect-ratio-1x1 w-100"
+                    alt="找不到人合作?"
                   />
                 </div>
                 <h1>找不到人合作?</h1>
@@ -69,6 +71,7 @@
                   <img
                     src="/resources/transistor-boy-and-girl-drawing-at-the-childrens-table.png"
                     class="object-fit-scale object-position-50 aspect-ratio-1x1 w-100"
+                    alt="想累積粉絲?"
                   />
                 </div>
                 <h1>想累積粉絲?</h1>
@@ -79,6 +82,7 @@
                   <img
                     src="/resources/transistor-autumn-walk.png"
                     class="object-fit-cover object-position-50 aspect-ratio-1x1 w-100"
+                    alt="約稿沒保障?"
                   />
                 </div>
                 <h1>約稿沒保障?</h1>
@@ -94,7 +98,7 @@
     <div class="container py-5">
       <div class="row">
         <div class="col-12">
-          <h1>推薦作著</h1>
+          <h1>推薦作者</h1>
         </div>
       </div>
       <div
@@ -124,7 +128,8 @@ const actions = [
   'PushUrl',
   'setAdminToken',
   'checkUserLogin',
-  'checkUserhasArt'
+  'checkUserhasArt',
+  'getAlldata'
 ]
 
 export default {
@@ -172,9 +177,15 @@ export default {
             Object.values(this.authors).length < 5 &&
             this.AuthorPage.has_next
           ) {
+            this.authors = Object.values(this.authors).filter((item) => {
+              return item.ArtQuantity > 0
+            })
             this.getAuthorData(page + 1)
             console.log('has next')
           } else {
+            this.authors = Object.values(this.authors).filter((item) => {
+              return item.ArtQuantity > 0
+            })
             console.log('no next')
           }
         })
@@ -182,18 +193,15 @@ export default {
           console.log(err.response.data.message)
           // alert(err.response.data.message)
         })
-      this.authors = Object.values(this.authors).filter((item) => {
-        console.log(item)
-        return item.ArtQuantity > 0
-      })
     }
   },
-  mounted () {
+  async mounted () {
+    await this.getAlldata()
     this.getData()
     this.getAuthorData()
   },
   computed: {
-    ...mapState(UserState, ['userHasLogIn', 'AdminToken'])
+    ...mapState(UserState, ['userHasLogIn', 'AdminToken', 'Alldata'])
   }
 }
 </script>

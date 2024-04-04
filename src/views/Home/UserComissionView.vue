@@ -6,7 +6,11 @@
     <div class="row pt-0">
       <div class="col-12 d-flex align-items-center">
         <div class="me-2 headeimg">
-          <img src="https://fakeimg.pl/100x100/" class="rounded-circle" />
+          <img
+            :src="authorData.imageUrl"
+            class="rounded-circle"
+            alt="作者"
+          />
         </div>
         <div>
           <h3>{{ authorData.title }}</h3>

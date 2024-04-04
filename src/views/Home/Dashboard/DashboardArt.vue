@@ -46,7 +46,6 @@ export default {
     async getUserArtWork () {
       await this.getAlldata()
       this.userArtWork = Object.values(this.Alldata).filter((item) => {
-        // console.log(item)
         return item.author === this.userID && item.category === '作品'
       })
       this.userCommission = Object.values(this.Alldata).filter((item) => {

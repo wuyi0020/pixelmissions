@@ -42,6 +42,7 @@
                       :src="art.imageUrl"
                       ref="imagePreview2"
                       class="mw-100 ratio-1x1"
+                      alt="上傳圖片"
                     />
                   </label>
                 </div>
@@ -51,7 +52,7 @@
               v-if="art.imageUrl"
               class="card-img-top ratio-1x1"
               :src="art.imageUrl"
-              alt=""
+              alt="作品圖片"
             />
             <div class="mt-3 d-flex justify-content-center">
               <button
@@ -124,7 +125,6 @@
 <script>
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
-// axios
 import axios from 'axios'
 import toastr from 'toastr'
 const { VITE_URL, VITE_API_PATH } = import.meta.env
@@ -167,16 +167,14 @@ export default {
       this.setAdminToken()
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${this.artID}`
       axios.defaults.headers.common.Authorization = this.AdminToken
-      console.log(this.art)
+
       axios
         .put(url, { data: this.art })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
           this.$router.push(`/usercenter/${this.userID}`)
           toastr.success('修改成功')
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           toastr.warning('修改失敗')
         })
     },
@@ -193,7 +191,6 @@ export default {
         this.done()
         return
       }
-      console.log('upload')
       // 創建上傳用的formdata
       const formData = new FormData()
       const file = this.$refs.imgfileInput.files[0]
@@ -211,9 +208,6 @@ export default {
         .then((res) => {
           this.art.imageUrl = res.data.imageUrl
           this.done()
-        })
-        .catch((err) => {
-          console.log(err)
         })
     }
   },

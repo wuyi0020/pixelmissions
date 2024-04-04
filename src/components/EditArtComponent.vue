@@ -3,7 +3,7 @@
     <img
       :src="item.imageUrl"
       class="card-img-top rounded-0 card-img"
-      alt="..."
+      alt="作品圖片"
     />
     <div class="card-body border align-self-stretch bg-dark-subtle">
       <p class="mb-0 card-text border-top-0 fs-3">
@@ -13,7 +13,10 @@
         <i class="bi bi-heart-fill"></i>
         {{ item.like }}
       </p>
-      <p v-if="item.category === '報價'" class="mb-0 card-text text-end border-top-0 fs-3">
+      <p
+        v-if="item.category === '報價'"
+        class="mb-0 card-text text-end border-top-0 fs-3"
+      >
         <i class="bi bi-cash"></i>
         {{ item.price }}
       </p>
@@ -118,19 +121,12 @@ export default {
       this.edit = true
     },
     deleteItem (item) {
-      console.log(item)
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${item.id}`
       const token = this.AdminToken
       axios.defaults.headers.common.Authorization = `${token}`
-      axios
-        .delete(url)
-        .then((res) => {
-          console.log(res)
-          this.$emit('updated')
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      axios.delete(url).then(() => {
+        this.$emit('updated')
+      })
     }
   },
   computed: {

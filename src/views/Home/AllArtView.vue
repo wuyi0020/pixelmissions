@@ -4,7 +4,7 @@
     <hr />
     <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-0 g-lg-4">
       <div v-for="author in authors" :key="author.id">
-        <ArtComponent :item="author" :showAuthor="true" />
+        <ArtComponent :item="author" :showAuthor="true" :datas="Alldata" />
       </div>
     </div>
     <hr />
@@ -74,19 +74,16 @@ export default {
     ...mapActions(UserState, actions),
     async nextPage (currentPage = 0) {
       await this.getAlldata()
-      console.log(this.Alldata)
       this.authors = Object.values(this.Alldata).filter((item) => {
         return item.category === '作品'
       })
       this.pages.current = currentPage
       this.pages.currentPage = currentPage + 1
       this.pages.total = Object.values(this.authors).length
-      console.log(this.pages.total)
       this.pages.totalPage = Math.ceil(this.pages.total / this.pages.eachOfPage)
       this.pages.hasNext = this.pages.currentPage < this.pages.totalPage
       const min = this.pages.current * this.pages.eachOfPage + this.pages.min
       const max = min + this.pages.eachOfPage
-      console.log(this.pages)
       this.authors = this.authors.slice(min, max)
     }
   },

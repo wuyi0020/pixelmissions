@@ -78,13 +78,11 @@ export default defineStore('UserState', {
             }
           })
           .then((res) => {
-            // console.log(res.data);
             let account = Object.values(res.data.products).filter((item) => {
               return item.id === this.userID
             })
             account = account[0]
             const { username, email } = account
-            // console.log(username);
             this.userName = username
             this.userEmail = email || username
             toastr.success('已登入 跳轉至首頁')
@@ -100,12 +98,10 @@ export default defineStore('UserState', {
         toastr.error('請輸入帳號密碼')
         return
       }
-      // 登入檢查
-      const token = await this.setAdminToken()
-      console.log(token)
+      // // 登入檢查
+      // const token = await this.setAdminToken()
 
       await this.getAlldata()
-      console.log(this.Alldata)
       try {
         const user = Object.values(this.Alldata).find((item) => {
           if (item.category === '使用者' && item.email === email) {
@@ -117,12 +113,10 @@ export default defineStore('UserState', {
           }
           return null
         })
-        console.log(user)
         if (!user) {
           toastr.error('帳號未註冊')
           return
         }
-        console.log(user)
         if (Object.keys(user).length) {
           const ID = user.id
           toastr.success('登入成功')
@@ -139,7 +133,6 @@ export default defineStore('UserState', {
           toastr.error('登入失敗')
         }
       } catch (err) {
-        console.log(err)
         if (err.response.status === 401) {
           this.UserLogout()
         }
@@ -156,7 +149,6 @@ export default defineStore('UserState', {
       //   return null
       // })
 
-      // console.log(token);
       // const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/products/all`
       // axios
       //   .get(url, {
@@ -166,7 +158,6 @@ export default defineStore('UserState', {
       //   })
       //   .then((res) => {
       //     this.Alldata = res.data.products
-      //     console.log(this.Alldata)
       //     const user = Object.values(this.Alldata).find((item) => {
       //       if (item.category === '使用者' && item.email === email) {
       //         if (item.password === password) {
@@ -177,7 +168,6 @@ export default defineStore('UserState', {
       //       }
       //       return null
       //     })
-      //     console.log(user)
       //     return user
       //   })
       //   .then((user) => {
@@ -185,7 +175,6 @@ export default defineStore('UserState', {
       //       toastr.error('帳號未註冊')
       //       return
       //     }
-      //     console.log(user)
       //     if (Object.keys(user).length) {
       //       const ID = user.id
       //       toastr.success('登入成功')
@@ -203,7 +192,6 @@ export default defineStore('UserState', {
       //     }
       //   })
       //   .catch((err) => {
-      //     console.log(err)
       //     if (err.response.status === 401) {
       //       this.UserLogout()
       //     }
@@ -238,7 +226,6 @@ export default defineStore('UserState', {
         'DashbordAdminToken=;expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'
     },
     PushUrl (Url) {
-      console.log(Url)
       this.$router.push(Url)
       // location.reload();
     },
@@ -269,10 +256,6 @@ export default defineStore('UserState', {
         })
         .then((res) => {
           this.Alldata = res.data.products
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
         })
 
       return this.Alldata
@@ -289,27 +272,18 @@ export default defineStore('UserState', {
       })
       const author = { ...this.Alldata[authorID] }
       if (authorArt.length === author.ArtQuantity) {
-        // console.log('無需更新')
         return
       }
       author.ArtQuantity = Object.values(authorArt).length
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${authorID}`
       const token = await this.getCookie('AdminToken')
       const data = { data: author }
-      // console.log(data)
       // return null
-      axios
-        .put(url, data, {
-          headers: {
-            Authorization: `${token}`
-          }
-        })
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      axios.put(url, data, {
+        headers: {
+          Authorization: `${token}`
+        }
+      })
     },
     async checkUserhasArt () {
       await this.getAlldata()
@@ -319,9 +293,7 @@ export default defineStore('UserState', {
           UserSet.add(item.id)
         }
       })
-      console.log(UserSet)
       UserSet.forEach((item) => {
-        console.log(item)
         this.updateUserArtQuantity(item)
       })
     },
@@ -332,7 +304,6 @@ export default defineStore('UserState', {
         .find((row) => row.startsWith(`${name}=`))
         ?.split('=')[1]
 
-      console.log(cookieValue)
       return cookieValue
     }
 

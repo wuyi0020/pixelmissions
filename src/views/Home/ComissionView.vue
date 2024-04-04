@@ -6,7 +6,7 @@
     <div class="row pt-0">
       <div class="col-12 d-flex align-items-center">
         <div class="me-2 headeimg">
-          <img src="https://fakeimg.pl/100x100/" class="rounded-circle" />
+          <img :src="authorData.imageUrl" class="rounded-circle" alt="作者"/>
         </div>
         <div>
           <p class="h3">
@@ -29,6 +29,7 @@
             <img
               :src="ThisComissionData.imageUrl"
               class="img-fluid rounded-start-0 ratio-1x1 mh-100"
+              alt="方案"
             />
           </div>
           <div class="col-md-8 d-flex flex-column">
@@ -129,7 +130,6 @@ export default {
       if (this.$route.params.id === undefined) {
         this.$router.push('/')
       }
-      // this.userData = {...this.Alldata[this.userID]};
       this.ThisComissionData = { ...this.Alldata[this.$route.params.id] }
       if (this.ThisComissionData === undefined) {
         this.$router.push('/')
@@ -142,26 +142,7 @@ export default {
       this.authorComission = Object.values(this.Alldata).filter(
         (item) => item.category === '報價' && item.author === this.authorID
       )
-      // console.log(this.$route.params);
     }
-    // addCart () {
-    //   // const addcartUrl = `${VITE_URL}/api/${VITE_API_PATH}/cart`
-    //   // axios
-    //   //   .post(addcartUrl, {
-    //   //     data: {
-    //   //       product_id: this.ThisComissionData.id,
-    //   //       qty: 1
-    //   //     }
-    //   //   })
-    //   //   .then((response) => {
-    //   //     toastr.success('已加入購物車')
-    //   //     console.log(response)
-    //   //   })
-    //   //   .catch((err) => {
-    //   //     alert(err.response.data.message)
-    //   //   })
-    //   // console.log('addCart')
-    // }
   },
   async mounted () {
     await this.checkUserLogin()

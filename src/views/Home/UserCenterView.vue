@@ -9,6 +9,7 @@
           <img
             :src="userData.imageUrl"
             class="rounded-circle object-fit-cover w-100 h-100"
+            alt="作者"
           />
         </div>
         <div>
@@ -129,7 +130,6 @@ export default {
     ...mapActions(UserState, actions),
     async GetUserData () {
       await this.getAlldata()
-      console.log(this.$route.params.userid)
       const key = this.$route.params.userid
       this.userData = this.Alldata[key]
       this.getUserArtWork()
@@ -139,7 +139,6 @@ export default {
       this.userArtWork = Object.values(this.Alldata)
         .filter((item) => {
           if (item.author === key && item.category === '作品') {
-            console.log(item)
             return item
           }
           return null
@@ -148,14 +147,11 @@ export default {
       this.userComission = Object.values(this.Alldata)
         .filter((item) => {
           if (item.author === key && item.category === '報價') {
-            console.log(item)
             return item
           }
           return null
         })
         .slice(0, 3)
-      console.log(this.userArtWork)
-      console.log(this.userComission)
     }
   },
   computed: {

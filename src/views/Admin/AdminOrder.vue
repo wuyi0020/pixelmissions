@@ -6,7 +6,7 @@
         <thead>
           <tr>
             <th>購買時間</th>
-            <th class=" d-none d-lg-block">Email</th>
+            <th class="d-none d-lg-block">Email</th>
             <th>購買方案</th>
             <th>應付金額</th>
             <th>是否付款</th>
@@ -20,7 +20,9 @@
               :class="{ 'text-secondary': !item.is_paid }"
             >
               <td>{{ formatDate(item.create_at) }}</td>
-              <td class=" d-none d-lg-block"><span v-text="item.user.email" v-if="item.user"></span></td>
+              <td class="d-none d-lg-block">
+                <span v-text="item.user.email" v-if="item.user"></span>
+              </td>
               <td>
                 <ul class="list-unstyled">
                   <li v-for="product in item.products" :key="product.id">
@@ -313,24 +315,19 @@ export default {
   methods: {
     ...mapActions(UserState, ['getCookie']),
     getOrders () {
-      console.log(this.getCookie('DashbordAdminToken'))
       axios.defaults.headers.common.Authorization =
         this.getCookie('DashbordAdminToken')
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/orders?page=${this.currentPage}`
-      console.log(url)
       axios
         .get(url)
         .then((res) => {
           this.orders = res.data.orders
-          console.log(res)
         })
-        .catch((err) => {
-          console.log(err)
+        .catch(() => {
           tostar.error('取得訂單失敗')
         })
     },
     formatDate (date) {
-      console.log(date * 1000)
       return moment(date * 1000).format('YYYY-MM-DD')
     },
     updatePaid (item) {
@@ -347,28 +344,12 @@ export default {
       axios
         .put(api, { data: paid })
         .then(() => {
-          // this.isLoading = false
-          // const orderComponent = this.$refs.orderModal
-          // orderComponent.hideModal()
           tostar.success('更新付款狀態成功')
           orderModal.hide()
-          // this.pushMessage({
-          //   style: 'success',
-          //   title: '更新付款狀態',
-          //   content: response.data.message
-          // })
-
           this.getOrders(this.currentPage)
         })
-        .catch((error) => {
-          // this.isLoading = false
+        .catch(() => {
           tostar.error('更新付款狀態失敗')
-          console.log(error)
-          // this.pushMessage({
-          //   style: 'danger',
-          //   title: '錯誤訊息',
-          //   content: error.response.data.message
-          // })
         })
     },
     openDelOrderModal (item) {
@@ -388,9 +369,8 @@ export default {
           tostar.success('刪除訂單成功')
           this.getOrders(this.currentPage)
         })
-        .catch((error) => {
+        .catch(() => {
           tostar.error('刪除訂單失敗')
-          console.log(error)
         })
       const deleteModal = Modal.getInstance(
         document.getElementById('deleteModal')

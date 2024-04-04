@@ -5,6 +5,7 @@
         :src="item.imageUrl"
         class="card-img-top mh-100 rounded-0 object-fit-contain object-position-center w-100 m-0 ArtComponent__image"
         loading="lazy"
+        alt="作品圖片"
       />
     </div>
     <!-- <div class="w-100 pt-100 position-relative"></div> -->
@@ -28,7 +29,7 @@
       <div class="d-flex justify-content-end align-items-center">
         <img
           :src="author.imageUrl"
-          alt=""
+          alt="作者圖片"
           height="50px"
           class="rounded-circle object-fit-cover object-position-center"
         />
@@ -76,6 +77,10 @@ export default {
       type: Object,
       required: true
     },
+    datas: {
+      type: Object,
+      required: false
+    },
     showtitle: {
       type: Boolean,
       default: true
@@ -109,12 +114,11 @@ export default {
     ...mapActions(UserState, ['getAlldata'])
   },
   async mounted () {
-    if (this.Alldata === null) {
-      setTimeout(() => {
-        this.author = this.Alldata[this.item.author]
-      }, 1000)
-    } else {
+    if (!this.datas) {
+      await this.getAlldata()
       this.author = this.Alldata[this.item.author]
+    } else {
+      this.author = this.datas[this.item.author]
     }
   }
 }

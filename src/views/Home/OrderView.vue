@@ -19,6 +19,7 @@
               <img
                 :src="products.product.imageUrl"
                 class="img-fluid rounded-start-0 ratio-1x1 mh-100"
+                alt="方案"
               />
             </div>
             <div class="col-md-8 d-flex flex-column">
@@ -31,6 +32,7 @@
                     :src="Users[products.product.author].imageUrl"
                     width="60px"
                     class="img-fluid ratio-1x1 rounded-circle"
+                    alt="作者"
                   />
                   <span class="mx-2 fs-4">{{
                     Users[products.product.author].title

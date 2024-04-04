@@ -46,6 +46,7 @@
 
 <script>
 import axios from 'axios'
+import toastr from 'toastr'
 
 const { VITE_URL } = import.meta.env
 
@@ -65,13 +66,13 @@ export default {
       axios
         .post(api, this.user)
         .then((res) => {
-          console.log('燈入成功', res.data)
+          toastr.success('燈入成功')
           const { token, expired } = res.data
           document.cookie = `DashbordAdminToken=${token};expires=${new Date(expired)}; path=/`
           this.$router.push('/admin/product')
         })
-        .catch((err) => {
-          console.log('登入失敗' + err.data.message)
+        .catch(() => {
+          toastr.error('登入失敗')
         })
     }
   },

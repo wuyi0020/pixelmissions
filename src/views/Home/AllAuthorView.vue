@@ -75,19 +75,16 @@ export default {
     ...mapActions(UserState, actions),
     async nextPage (currentPage = 0) {
       await this.getAlldata()
-      // console.log(this.Alldata)
       this.authors = Object.values(this.Alldata).filter((item) => {
         return item.category === '使用者' && item.ArtQuantity > 0
       })
       this.pages.current = currentPage
       this.pages.currentPage = currentPage + 1
       this.pages.total = Object.values(this.authors).length
-      console.log(this.pages.total)
       this.pages.totalPage = Math.ceil(this.pages.total / this.pages.eachOfPage)
       this.pages.hasNext = this.pages.currentPage < this.pages.totalPage
       const min = this.pages.current * this.pages.eachOfPage + this.pages.min
       const max = min + this.pages.eachOfPage
-      // console.log(this.pages)
       this.authors = this.authors.slice(min, max)
     }
   },
