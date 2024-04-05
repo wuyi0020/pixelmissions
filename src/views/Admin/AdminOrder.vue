@@ -6,7 +6,7 @@
         <thead>
           <tr>
             <th>購買時間</th>
-            <th class="d-none d-lg-block">Email</th>
+            <th class="d-none d-lg-table-cell">Email</th>
             <th>購買方案</th>
             <th>應付金額</th>
             <th>是否付款</th>
@@ -20,7 +20,7 @@
               :class="{ 'text-secondary': !item.is_paid }"
             >
               <td>{{ formatDate(item.create_at) }}</td>
-              <td class="d-none d-lg-block">
+              <td class="d-none d-lg-table-cell">
                 <span v-text="item.user.email" v-if="item.user"></span>
               </td>
               <td>
@@ -77,6 +77,7 @@
         <ul class="pagination">
           <li class="page-item" :class="{ disabled: !pagination.current }">
             <button
+              type="button"
               class="page-link"
               @click="nextPage(pagination.current - 1)"
               aria-label="Previous"
@@ -90,12 +91,13 @@
             :key="page"
             :class="{ active: page === pagination.currentPage }"
           >
-            <button class="page-link" @click="nextPage(page - 1)">
+            <button class="page-link" @click="nextPage(page - 1)" type="button">
               {{ page }}
             </button>
           </li>
           <li class="page-item" :class="{ disabled: !pagination.hasNext }">
             <button
+              type="button"
               class="page-link"
               @click="nextPage(pagination.current + 1)"
               aria-label="Next"
@@ -331,6 +333,7 @@ export default {
       return moment(date * 1000).format('YYYY-MM-DD')
     },
     updatePaid (item) {
+      console.log(item.id)
       this.isLoading = true
       const api = `${VITE_URL}/api/${VITE_API_PATH}/admin/order/${item.id}`
       const paid = {
@@ -345,7 +348,9 @@ export default {
         .put(api, { data: paid })
         .then(() => {
           tostar.success('更新付款狀態成功')
-          orderModal.hide()
+          if (orderModal) {
+            orderModal.hide()
+          }
           this.getOrders(this.currentPage)
         })
         .catch(() => {

@@ -23,7 +23,6 @@
                 :src="fileUrl"
                 ref="imagePreview2"
                 class="mw-100 ratio-1x1"
-                alt="上傳圖片"
               />
               <input type="file" ref="imgfileInput" id="fileInput" />
               <h1

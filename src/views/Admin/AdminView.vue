@@ -34,7 +34,7 @@
           </ul>
           <ul class="navbar-nav d-flex ms-auto">
             <div class="nav-item">
-              <button class="nav-link" @click="AdminLogOut()">登出</button>
+              <button class="nav-link" @click="AdminLogOut()" type="button">登出</button>
             </div>
           </ul>
         </div>

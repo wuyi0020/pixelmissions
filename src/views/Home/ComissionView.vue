@@ -5,11 +5,15 @@
   <div class="container mb-5">
     <div class="row pt-0">
       <div class="col-12 d-flex align-items-center">
-        <div class="me-2 headeimg">
-          <img :src="authorData.imageUrl" class="rounded-circle" alt="作者"/>
+        <div class="me-2 headeimg" style="height: 100px; width: 100px">
+          <img
+            :src="authorData.imageUrl"
+            class="rounded-circle img-container"
+            alt="作者"
+          />
         </div>
         <div>
-          <p class="h3">
+          <p>
             {{ authorData.title }}
             <span
               v-if="userID === ThisComissionData.author"
@@ -44,7 +48,7 @@
                 {{ ThisComissionData.content }}
               </p>
             </div>
-            <div class="text-center fs-2">
+            <div class="fs-2">
               <span class=""> {{ ThisComissionData.price }} TWD</span>
             </div>
             <router-link
@@ -62,6 +66,21 @@
                 進行委託
               </button>
             </router-link>
+            <router-link
+              :to="{
+                name: 'EditArtView',
+                params: { id: ThisComissionData.id }
+              }"
+              class="mx-5"
+              v-else
+            >
+              <button
+                type="button"
+                class="btn btn-primary w-100 btn-lg rounded-pill"
+              >
+                修改方案
+              </button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -76,15 +95,6 @@
           <ArtComponent :item="item" :showPrice="true" />
         </div>
       </div>
-      <!-- <div class="col-12">
-        <p>
-          {{ this.authorComission }}
-        </p>
-        <br />
-        <p>
-          {{ this.ThisComissionData }}
-        </p>
-      </div> -->
     </div>
   </div>
 </template>

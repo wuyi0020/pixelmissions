@@ -36,11 +36,7 @@
           </div>
         </div>
         <hr />
-        <!-- {{ ThisComissionData }} -->
-        <!-- <div class="" v-for="(item, index) in items" :key="index"></div> -->
-        <!-- <button type="button" @click="createOrder">AAA</button> -->
       </div>
-      <!-- <button type="button" @click="deletCart">清空購物車</button> -->
     </div>
   </div>
   <div class="container">
@@ -56,67 +52,67 @@
         v-slot="{ errors }"
         @submit="createOrder"
       >
-        <div class="mb-3 form-floating">
+        <div class="mb-3">
+          <label for="email" class="form-label">電子郵件 *</label>
           <v-field
             id="email"
-            name="email"
+            name="電子郵件"
             type="email"
             class="form-control"
-            :class="{ 'is-invalid': errors['email'] }"
+            :class="{ 'is-invalid': errors['電子郵件'] }"
             placeholder="請輸入 Email"
             rules="email|required"
             v-model="form.user.email"
           ></v-field>
-          <label for="email" class="form-label">電子郵件</label>
-          <error-message name="email" class="invalid-feedback"></error-message>
+          <error-message
+            name="電子郵件"
+            class="invalid-feedback"
+          ></error-message>
         </div>
 
         <div class="mb-3">
-          <label for="name" class="form-label">收件人名稱</label>
+          <label for="name" class="form-label">收件人名稱 *</label>
           <v-field
             id="name"
-            name="name"
+            name="收件人"
             type="text"
             class="form-control"
-            :class="{ 'is-invalid': errors['name'] }"
+            :class="{ 'is-invalid': errors['收件人'] }"
             placeholder="請輸入名稱"
             rules="required"
             v-model="form.user.name"
           ></v-field>
-          <error-message name="name" class="invalid-feedback"></error-message>
+          <error-message name="收件人" class="invalid-feedback"></error-message>
         </div>
 
         <div class="mb-3">
-          <label for="tel" class="form-label">收件人電話</label>
+          <label for="tel" class="form-label">收件人電話 *</label>
           <v-field
             id="tel"
-            name="phone"
+            name="電話"
             type="text"
             class="form-control"
-            :class="{ 'is-invalid': errors['phone'] }"
+            :class="{ 'is-invalid': errors['電話'] }"
             placeholder="請輸入電話"
             rules="required|min:8|max:10"
             v-model="form.user.tel"
           ></v-field>
-          <error-message name="phone" class="invalid-feedback"></error-message>
+          <error-message name="電話" class="invalid-feedback"></error-message>
         </div>
 
         <div class="mb-3">
-          <label for="address" class="form-label">收件人地址</label>
+          <label for="address" class="form-label">收件人地址 *</label>
           <v-field
             id="address"
-            name="address"
+            name="地址"
             type="text"
             class="form-control"
-            :class="{ 'is-invalid': errors['address'] }"
+            :class="{ 'is-invalid': errors['地址'] }"
             placeholder="請輸入地址"
             rules="required"
             v-model="form.user.address"
           ></v-field>
-          <error-message
-            name="address"
-            class="invalid-feedback"
-          ></error-message>
+          <error-message name="地址" class="invalid-feedback"></error-message>
         </div>
 
         <div class="mb-3">
@@ -131,7 +127,7 @@
           ></textarea>
         </div>
         <div class="text-end">
-          <button type="submit" class="btn btn-danger">送出訂單</button>
+          <button type="submit" class="btn btn-primary">送出訂單</button>
         </div>
       </v-form>
     </div>
@@ -217,8 +213,7 @@ export default {
             qty: 1
           }
         })
-        .then((response) => {
-          console.log(response.data)
+        .then(() => {
           return axios.post(orderurl, {
             data: {
               user: this.form.user,
@@ -228,13 +223,12 @@ export default {
             }
           })
         })
-        .then((response) => {
-          console.log(response.data)
+        .then(() => {
           toastr.success('已創建訂單')
         })
-      // axios.get(url).then((response) => {
-      //   console.log(response.data.data.carts)
-      // })
+        .then(() => {
+          this.$router.push({ name: 'Order' })
+        })
     },
     deletCart () {
       const carturl = `${VITE_URL}/api/${VITE_API_PATH}/admin/orders/all`

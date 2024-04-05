@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="container-fluid bg bg-light bg-opacity-75 bg-5dot">
+    <div class="container-fluid bg bg-light bg-opacity-50 bg-summer">
       <div class="row vh-50 align-content-center m-0">
         <!-- <div
           v-if="!userHasLogIn"
@@ -11,21 +11,13 @@
         <div class="col-12">
           <div class="container">
             <div class="row align-items-center">
-              <div class="col-8">
-                <h2 class="fs-3 pt-5 text-break mw-100">
+              <div class="col-12">
+                <h3 class="h3 pt-5 text-break mw-100">
                   累積粉絲 尋找合作機會？
-                </h2>
-                <h2 class="fs-3 pb-5 text-break mw-100">
+                </h3>
+                <h3 class="h3 pb-5 text-break mw-100">
                   使用 Pixel Missions 滿足這一切
-                </h2>
-              </div>
-              <div class="col-4 overflow-hidden">
-                <img
-                  src="/resources/vadim-bogulov-cZveUvrezvY-unsplash.jpg"
-                  class="img-container object-fit-cover"
-                  style="object-position: 0%, 50%"
-                  alt="主頁圖片"
-                />
+                </h3>
               </div>
             </div>
           </div>
@@ -38,17 +30,22 @@
           <h1>推薦作品</h1>
         </div>
       </div>
-      <div
-        class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-0 g-md-2 gx-lg-4"
+      <swiper
+        :slidesPerView="'auto'"
+        :spaceBetween="20"
+        :pagination="{
+          clickable: true
+        }"
+        :modules="modules"
+        class="mySwiper"
+        :breakpoints="swiperOptions.breakpoints"
       >
-        <div
-          v-for="item in products"
-          :key="item.id"
-          class="rounded-bottom col ratio-1x1"
-        >
-          <ArtComponent :item="item" :showAuthor="true" :datas="Alldata" />
-        </div>
-      </div>
+        <template v-for="item in products" :key="item.id">
+          <swiper-slide>
+            <ArtComponent :item="item" :showAuthor="true" :datas="Alldata" />
+          </swiper-slide>
+        </template>
+      </swiper>
     </div>
     <div class="container-fluid bg bg-dark-subtle">
       <div class="row min-vh-50 align-content-center">
@@ -121,6 +118,8 @@ import axios from 'axios'
 import { mapActions, mapState } from 'pinia'
 import UserState from '@/stores/UserState.js'
 import ArtComponent from '@/components/ArtComponent.vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Navigation, Pagination } from 'swiper/modules'
 
 const { VITE_URL, VITE_API_PATH } = import.meta.env
 
@@ -134,14 +133,41 @@ const actions = [
 
 export default {
   components: {
-    ArtComponent
+    ArtComponent,
+    Swiper,
+    SwiperSlide
   },
   data () {
     return {
       products: [],
       authors: [],
       page: {},
-      AuthorPage: {}
+      AuthorPage: {},
+      modules: [Navigation, Pagination],
+      swiperOptions: {
+        breakpoints: {
+          0: {
+            slidesPerView: 1,
+            spaceBetween: 5
+          },
+          576: {
+            slidesPerView: 1,
+            spaceBetween: 5
+          },
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20
+          },
+          992: {
+            slidesPerView: 3,
+            spaceBetween: 20
+          },
+          1200: {
+            slidesPerView: 5,
+            spaceBetween: 20
+          }
+        }
+      }
     }
   },
   methods: {
@@ -206,4 +232,10 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style>
+@media (max-width: 576px) {
+  .swiper {
+    max-width: 80vw !important;
+  }
+}
+</style>

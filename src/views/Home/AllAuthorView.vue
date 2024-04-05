@@ -17,6 +17,7 @@
               class="page-link"
               @click="nextPage(pages.current - 1)"
               aria-label="Previous"
+              type="button"
             >
               <span aria-hidden="true">&laquo;</span>
             </button>
@@ -27,12 +28,13 @@
             :key="page"
             :class="{ active: page === pages.currentPage }"
           >
-            <button class="page-link" @click="nextPage(page - 1)">
+            <button type="button" class="page-link" @click="nextPage(page - 1)">
               {{ page }}
             </button>
           </li>
           <li class="page-item" :class="{ disabled: !pages.hasNext }">
             <button
+              type="button"
               class="page-link"
               @click="nextPage(pages.current + 1)"
               aria-label="Next"

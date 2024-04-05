@@ -138,65 +138,6 @@ export default defineStore('UserState', {
         }
         toastr.error('登入失敗 請稍後再試')
       }
-      // Object.values(this.Alldata).find((item) => {
-      //   if (item.category === '使用者' && item.email === email) {
-      //     if (item.password === password) {
-      //       return item
-      //     } else {
-      //       throw new Error('密碼錯誤')
-      //     }
-      //   }
-      //   return null
-      // })
-
-      // const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/products/all`
-      // axios
-      //   .get(url, {
-      //     headers: {
-      //       Authorization: `${token}`
-      //     }
-      //   })
-      //   .then((res) => {
-      //     this.Alldata = res.data.products
-      //     const user = Object.values(this.Alldata).find((item) => {
-      //       if (item.category === '使用者' && item.email === email) {
-      //         if (item.password === password) {
-      //           return item
-      //         } else {
-      //           throw new Error('密碼錯誤')
-      //         }
-      //       }
-      //       return null
-      //     })
-      //     return user
-      //   })
-      //   .then((user) => {
-      //     if (!user) {
-      //       toastr.error('帳號未註冊')
-      //       return
-      //     }
-      //     if (Object.keys(user).length) {
-      //       const ID = user.id
-      //       toastr.success('登入成功')
-      //       const expired = new Date(
-      //         new Date().getTime() + 1000 * 60 * 60 * 24 * 7
-      //       )
-      //       document.cookie = `UserID=${ID};expires=${expired}; path=/`
-      //       this.userID = ID
-      //       this.userName = user.username
-      //       this.userEmail = user.email
-      //       this.userHasLogIn = true
-      //       this.$router.push('/')
-      //     } else {
-      //       toastr.error('登入失敗')
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     if (err.response.status === 401) {
-      //       this.UserLogout()
-      //     }
-      //     toastr.error('登入失敗 請稍後再試')
-      //   })
     },
     checkUserLogin (push = true) {
       this.userID = this.getCookie('UserID')
@@ -278,7 +219,6 @@ export default defineStore('UserState', {
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${authorID}`
       const token = await this.getCookie('AdminToken')
       const data = { data: author }
-      // return null
       axios.put(url, data, {
         headers: {
           Authorization: `${token}`
@@ -306,33 +246,5 @@ export default defineStore('UserState', {
 
       return cookieValue
     }
-
-    // async PutProduct(item) {
-    //   let url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${data.id}`;
-    //   let token = await this.AdminTokenCheck();
-    //   let data = { item };
-    //   axios
-    //     .put(url, data, {
-    //       headers: {
-    //         Authorization: `${token}`,
-    //       },
-    //     })
-    //     .then((res) => {
-    //       let returnData = {
-    //         status: res.status,
-    //         data: res.data,
-    //         success: true,
-    //       };
-    //       return returnData;
-    //     })
-    //     .catch((err) => {
-    //       let returnData = {
-    //         status: err.response.status,
-    //         data: err.response.data,
-    //         success: false,
-    //       };
-    //       return returnData;
-    //     });
-    // },
   }
 })

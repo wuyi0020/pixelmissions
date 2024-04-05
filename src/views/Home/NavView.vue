@@ -38,7 +38,7 @@
               >
             </div>
             <div class="nav-item" v-if="userHasLogIn">
-              <button class="nav-link" @click="UserLogout()">登出</button>
+              <button type="button" class="nav-link" @click="UserLogout()">登出</button>
             </div>
             <div class="nav-item" v-else>
               <RouterLink class="nav-link" to="/login">登入</RouterLink>

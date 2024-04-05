@@ -1,3 +1,7 @@
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+
 // booststrap
 import 'bootstrap/dist/css/bootstrap.css'
 // bootstrap js

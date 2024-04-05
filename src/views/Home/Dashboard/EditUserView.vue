@@ -39,7 +39,6 @@
                       :src="User.imageUrl"
                       ref="imagePreview2"
                       class="mw-100 ratio-1x1"
-                      alt="上傳圖片"
                     />
                   </label>
                 </div>
@@ -49,7 +48,6 @@
               v-if="User.imageUrl"
               class="card-img-top ratio-1x1"
               :src="User.imageUrl"
-              alt="上傳圖片"
             />
             <div class="mt-3 d-flex justify-content-center">
               <button

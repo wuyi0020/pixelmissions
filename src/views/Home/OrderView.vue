@@ -48,8 +48,11 @@
                   {{ products.product.content }}
                 </p>
               </div>
-              <div class="text-center fs-2">
+              <div class="fs-2">
                 <span class=""> {{ products.total }} TWD</span>
+                <span v-if="order.is_paid" class="text-success"
+                  >(付款完成)</span
+                >
               </div>
               <div class="row gx-3">
                 <div class="col-9">
@@ -67,7 +70,7 @@
                     v-if="!order.is_paid"
                     type="button"
                     class="btn w-100 btn-outline-danger btn-lg rounded-pill"
-                    @click="DeletOrder(order.id)"
+                    @click="deleteOrder(order.id)"
                   >
                     刪除訂單
                   </button>
@@ -118,37 +121,6 @@
         </div>
       </div>
     </div>
-    <!-- <div class="card">
-      {{ ThisUserOrders }}
-    </div>
-    <div class="" v-for="(order, index) in ThisUserOrders" :key="index + 'B'">
-      <div class="card">
-        <div class="card-body">
-          {{ order }}
-          <hr />
-          {{ order.user.userid == this.userID }}
-          {{ this.userID }}
-          <hr />
-          <h5 class="card-title">{{ item.products }}</h5>
-          <div
-            class=""
-            v-for="(dd, index) in order.products"
-            :key="index + 'C'"
-          >
-            {{ dd }}
-          </div>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    {{ pagination }}
-    <div class="card">
-      <div class="" v-for="(item, index) in Users" :key="index">
-        {{ item }}
-        <hr />
-        {{ ' index:' + index }}
-      </div>
-    </div> -->
   </div>
 </template>
 <script>
@@ -182,16 +154,32 @@ export default {
     ...mapActions(UserState, actions),
     Pay (id) {
       const url = `${VITE_URL}/api/${VITE_API_PATH}/pay/${id}`
-      axios.post(url).then((response) => {
-        tostar.success('付款成功')
-      })
+      axios
+        .post(url)
+        .then((response) => {
+          tostar.success('付款成功')
+        })
+        .then(() => {
+          this.Orders = []
+          this.getOeder()
+        })
     },
     deleteOrder (id) {
-      const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/orders/${id}`
+      const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/order/${id}`
       axios.defaults.headers.common.Authorization = this.AdminToken
-      axios.delete(url).then((response) => {
-        tostar.success('刪除成功')
-      })
+      axios
+        .delete(url)
+        .then((response) => {
+          tostar.success('刪除成功')
+        })
+        .then(() => {
+          this.Orders = []
+          this.getOeder()
+        })
+        .catch((err) => {
+          console.log(err)
+          tostar.error('刪除失敗')
+        })
     },
     async getOeder () {
       axios.defaults.headers.common.Authorization = this.AdminToken
@@ -199,7 +187,6 @@ export default {
       let page = 1
       while (hasNext) {
         const url = `${VITE_URL}/api/${VITE_API_PATH}/orders?page=${page}`
-        console.log(page)
         await axios
           .get(url)
           .then((response) => {
@@ -208,9 +195,8 @@ export default {
             hasNext = response.data.pagination.has_next
             page++
           })
-          .catch((err) => {
+          .catch(() => {
             hasNext = false
-            console.log(err)
           })
       }
       this.ThisUserOrders = this.Orders.filter((order) => {

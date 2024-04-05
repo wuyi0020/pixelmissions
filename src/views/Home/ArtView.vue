@@ -27,6 +27,7 @@
         </div>
         <div class="pt-2" v-if="!(author.id == userID)">
           <button
+            type="button"
             class="btn w-100 rounded-pill"
             :class="{
               'btn-primary': !hasfollow,
@@ -53,6 +54,7 @@
             <h2>{{ art.title }}</h2>
           </div>
           <button
+            type="button"
             class="btn btn-outline-secondary"
             @click.prevent="likeArt(haslike)"
           >
@@ -63,6 +65,7 @@
             >
           </button>
           <button
+            type="button"
             class="btn ms-3 btn-outline-secondary"
             @click.prevent="ShareArt()"
           >
@@ -98,6 +101,7 @@
           </div>
           <p class="m-0 text-center" v-if="!(author.id == userID)">
             <button
+              type="button"
               class="btn rounded-pill"
               :class="{
                 'btn-primary': !hasfollow,

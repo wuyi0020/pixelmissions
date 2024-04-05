@@ -39,12 +39,14 @@
                     <td>{{ item.description }}</td>
                     <td>
                       <button
+                        type="button"
                         class="btn btn-primary"
                         @click.prevent="editProduct(item)"
                       >
                         編輯
                       </button>
                       <button
+                        type="button"
                         class="btn btn-outline-danger my-2"
                         @click.prevent="deletProduct(item)"
                       >
@@ -97,12 +99,14 @@
                     <td>{{ item.description }}</td>
                     <td>
                       <button
+                        type="button"
                         class="btn btn-primary"
                         @click.prevent="editProduct(item)"
                       >
                         編輯
                       </button>
                       <button
+                        type="button"
                         class="btn btn-outline-danger my-2"
                         @click.prevent="deletProduct(item)"
                       >
@@ -155,12 +159,14 @@
                     <td>{{ item.description }}</td>
                     <td>
                       <button
+                        type="button"
                         class="btn btn-primary"
                         @click.prevent="editProduct(item)"
                       >
                         編輯
                       </button>
                       <button
+                        type="button"
                         class="btn btn-outline-danger my-2"
                         @click.prevent="deletProduct(item)"
                       >
@@ -384,12 +390,10 @@ export default {
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${key}`
       axios.defaults.headers.common.Authorization =
         this.getCookie('DashbordAdminToken')
-      axios
-        .delete(url)
-        .then(() => {
-          this.getAlldata(true)
-          toastr.success('刪除成功')
-        })
+      axios.delete(url).then(() => {
+        this.getAlldata(true)
+        toastr.success('刪除成功')
+      })
       deletModal.hide()
     }
   },
