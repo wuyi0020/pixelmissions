@@ -72,7 +72,7 @@
                     class="btn w-100 btn-outline-danger btn-lg rounded-pill"
                     @click="deleteOrder(order.id)"
                   >
-                    刪除訂單
+                    <i class="bi bi-trash3"></i>
                   </button>
                 </div>
               </div>
@@ -229,4 +229,6 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+
+</style>

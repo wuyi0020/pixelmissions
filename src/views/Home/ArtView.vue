@@ -130,7 +130,7 @@
       >
         <div class="d-flex">
           <div
-            class="p-1 position-relative"
+            class="p-1 position-relative artbox my-2"
             v-for="item in AuthorWorks"
             :key="'AuthorWorks' + item.id"
           >
@@ -203,6 +203,7 @@ export default {
   async mounted () {
     await this.setAdminToken()
     this.Artinit()
+    this.logincheck()
   },
   computed: {
     ...mapState(UserState, state),
@@ -216,6 +217,12 @@ export default {
   },
   methods: {
     ...mapActions(UserState, actions),
+    logincheck () {
+      if (!this.userHasLogIn) {
+        this.PushUrl('/login')
+        toastr.warning('請先登入')
+      }
+    },
     async Artinit () {
       await this.setAdminToken()
       await this.getAlldata()
@@ -330,4 +337,11 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+.artbox:hover {
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px) scale(1.05);
+  transition: transform 0.3s;
+}
+</style>

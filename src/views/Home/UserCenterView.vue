@@ -76,15 +76,16 @@
         <h1 class="pt-3 d-inline-block">贊助/約稿方案</h1>
         <router-link
           :to="{ name: 'ComissionView', params: { id: thisUserID } }"
+          class="text-decoration-none "
         >
           <span class="text-secondary"> 查看全部 </span>
         </router-link>
         <hr />
       </div>
     </div>
-    <div class="row row-cols-2 row-cols-md-3 g-0 g-md-2 gx-lg-4">
-      <div v-for="item in userComission" :key="item.id">
-        <ArtComponent :item="item" :showPrice="true" />
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-md-3 gx-lg-4">
+      <div class="col" v-for="item in userComission" :key="item.id">
+        <ArtComponent :item="item" :showPrice="true" class="h-100" />
       </div>
     </div>
   </div>

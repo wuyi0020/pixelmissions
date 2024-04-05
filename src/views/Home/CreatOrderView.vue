@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h1 class="pt-3">登記方案</h1>
+        <h3 class="h3 pt-5">登記方案</h3>
         <hr />
         <div class="container">
           <div class="row">
@@ -17,17 +17,17 @@
                 </div>
                 <div class="col-md-8 d-flex flex-column">
                   <div class="card-body">
-                    <h1 class="card-title">
+                    <h1 class="card-title h3">
                       {{ ThisComissionData.title }}
                     </h1>
-                    <p class="fs-3 text-secondary mb-0">
+                    <p class="text-secondary mb-0">
                       {{ ThisComissionData.description }}
                     </p>
-                    <p class="fs-3 text-secondary">
+                    <p class="text-secondary">
                       {{ ThisComissionData.content }}
                     </p>
                   </div>
-                  <div class="text-center display-4">
+                  <div class="mb-5">
                     <span class=""> {{ ThisComissionData.price }} TWD</span>
                   </div>
                 </div>
@@ -48,7 +48,7 @@
     <div class="row justify-content-center">
       <v-form
         ref="form"
-        class="col-md-6"
+        class="col-md-8 col-lg-6"
         v-slot="{ errors }"
         @submit="createOrder"
       >

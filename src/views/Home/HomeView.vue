@@ -233,6 +233,7 @@ export default {
 </script>
 
 <style>
+/* 修正swiper在576px以下會出錯 */
 @media (max-width: 576px) {
   .swiper {
     max-width: 80vw !important;

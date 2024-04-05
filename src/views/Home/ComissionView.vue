@@ -41,22 +41,22 @@
               <h1 class="card-title">
                 {{ ThisComissionData.title }}
               </h1>
-              <p class="fs-3 text-secondary mb-0">
+              <p class="text-secondary mb-0">
                 {{ ThisComissionData.description }}
               </p>
-              <p class="fs-3 text-secondary">
+              <p class=" text-secondary">
                 {{ ThisComissionData.content }}
               </p>
             </div>
-            <div class="fs-2">
-              <span class=""> {{ ThisComissionData.price }} TWD</span>
+            <div class="mb-5">
+              <span > {{ ThisComissionData.price }} TWD</span>
             </div>
             <router-link
               :to="{
                 name: 'createOrder',
                 params: { id: ThisComissionData.id }
               }"
-              class="mx-5"
+              class=""
               v-if="userID !== ThisComissionData.author"
             >
               <button
@@ -71,7 +71,7 @@
                 name: 'EditArtView',
                 params: { id: ThisComissionData.id }
               }"
-              class="mx-5"
+              class=""
               v-else
             >
               <button

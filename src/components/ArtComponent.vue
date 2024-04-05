@@ -1,5 +1,5 @@
 <template>
-  <div class="card rounded-0 border-2">
+  <div class="card art rounded-0 border-2 my-2">
     <div class="container-fluid p-0">
       <img
         :src="item.imageUrl"
@@ -43,7 +43,7 @@
     </div>
     <p
       v-show="showPrice"
-      class="card-body flex-grow-0 bg-dark-subtle mb-0 card-text text-secondary border-0 fs-5"
+      class="card-body flex-grow-1 bg-dark-subtle mb-0 card-text text-secondary border-0 fs-5"
     >
       {{ item.description }}
     </p>
@@ -100,6 +100,10 @@ export default {
     showAuthor: {
       type: Boolean,
       default: false
+    },
+    h100: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -123,4 +127,11 @@ export default {
   }
 }
 </script>
-<style lang=""></style>
+<style>
+/* card hover 特效:向上浮動一點點 放大一點點*/
+.art.card:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px) scale(1.05);
+  transition: transform 0.3s;
+}
+</style>

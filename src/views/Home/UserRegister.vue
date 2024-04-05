@@ -106,12 +106,12 @@ export default {
         return
       }
       if (this.email.length < 4 || this.password.length < 4) {
-        this.warningText = '使用者名稱或密碼長度不足'
+        this.warningText = '使用者名稱或密碼長度不足\n(最少為4個字元)'
         this.warningswitch = true
         return
       }
       if (this.email.length > 20 || this.password.length > 20) {
-        this.warningText = '使用者名稱或密碼長度過長'
+        this.warningText = '使用者名稱或密碼長度過長\n(最多為20個字元)'
         this.warningswitch = true
         return
       }
@@ -141,21 +141,17 @@ export default {
         username: VITE_ADMIN_USERNAME,
         password: VITE_ADMIN_PASSWORD
       }
-      // console.log("loginData", loginData);
       const tokenUrl = `${VITE_URL}/admin/signin`
-      // console.log("tokenUrl", tokenUrl);
       // 登入取得後端必要token
       axios
         .post(tokenUrl, loginData)
         .then((res) => {
           const { token, expired } = res.data
           document.cookie = `RegToken=${token};expires=${new Date(expired)}; path=/`
-          // console.log("token", token);
           this.checkUserduplicates(token)
         })
         .catch(() => {
           toastr.warning('註冊失敗 請稍後再試')
-          // console.log(err);
         })
     },
     checkUserduplicates (token, pages = 1) {
@@ -170,12 +166,9 @@ export default {
           }
         })
         .then((res) => {
-          // console.log("使用者資料", res.data);
-          // console.log("使用者資料", Object.keys(res.data.products).length);
           const account = Object.values(res.data.products).filter((item) => {
             return item.email === this.email
           })
-          // console.log("account", account.length);
           if (
             res.data.pagination.total_pages !==
               res.data.pagination.current_page &&
@@ -187,23 +180,16 @@ export default {
             )
             return
           }
-          // console.log("account", account);
           if (account.length === 0) {
             this.register(token)
           } else {
-            // toastr.warning("使用者名稱已存在");
             this.warningText = '使用者名稱已存在'
             this.warningswitch = true
           }
         })
-        .catch(() => {
-          // console.log("使用者資料錯誤", err);
-        })
     },
     register (token) {
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product`
-      // let url = `${VITE_URL}/api/user/check`;
-      // console.log("url", url);
       let data = {
         title: this.username,
         category: '使用者',
@@ -218,7 +204,6 @@ export default {
         is_enabled: 1,
         imageUrl: 'https://fakeimg.pl/500x500/?retina=1&text=Not%20Set%20Head'
       }
-      // console.log(data);
       // POST 要帶data參數 才能寫Authorization 直接寫headers會把headers當成data參數
       axios
         .post(url, (data = { data }), {
@@ -226,13 +211,11 @@ export default {
             Authorization: `${token}`
           }
         })
-        .then((res) => {
-          // console.log("註冊成功", res);
+        .then(() => {
           toastr.success('註冊成功')
           this.$router.push({ name: 'Login' })
         })
         .catch(() => {
-          // console.log("註冊失敗", err);
           toastr.warning('註冊失敗 請稍後再試')
         })
     },
