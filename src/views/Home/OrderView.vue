@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <h1 class="mt-5">委託訂單確認</h1>
+      <h3 class="mt-5">委託訂單確認</h3>
     </div>
     <div class="container">
       <div
@@ -34,21 +34,21 @@
                     class="img-fluid ratio-1x1 rounded-circle"
                     alt="作者"
                   />
-                  <span class="mx-2 fs-4">{{
+                  <span class="mx-2 h3">{{
                     Users[products.product.author].title
                   }}</span>
                 </div>
-                <h1 class="card-title">
+                <p class="card-title h3">
                   {{ products.product.title }}
-                </h1>
-                <p class="fs-3 text-secondary mb-0">
+                </p>
+                <p class="mb-0">
                   {{ products.product.description }}
                 </p>
-                <p class="fs-3 text-secondary">
+                <p class="">
                   {{ products.product.content }}
                 </p>
               </div>
-              <div class="fs-2">
+              <div class="">
                 <span class=""> {{ products.total }} TWD</span>
                 <span v-if="order.is_paid" class="text-success"
                   >(付款完成)</span
@@ -78,7 +78,7 @@
               </div>
             </div>
             <div class="col-12">
-              <h1
+              <h3
                 type="button"
                 data-bs-toggle="collapse"
                 :data-bs-target="`#collapseID${order.id}`"
@@ -86,35 +86,35 @@
                 :aria-controls="`collapseID${order.id}`"
               >
                 訂單資料<i class="bi bi-arrow-down-circle"></i>
-              </h1>
+              </h3>
               <hr />
               <div :id="`collapseID${order.id}`" class="collapse">
-                <h2>Email :</h2>
-                <h3>{{ order.user.email }}</h3>
+                <h3>Email :</h3>
+                <p>{{ order.user.email }}</p>
                 <hr />
-                <h2>姓名 :</h2>
-                <h3>{{ order.user.name }}</h3>
+                <h3>姓名 :</h3>
+                <p>{{ order.user.name }}</p>
                 <hr />
-                <h2>收件人地址 :</h2>
-                <h3>{{ order.user.address }}</h3>
+                <h3>收件人地址 :</h3>
+                <p>{{ order.user.address }}</p>
                 <hr />
-                <h2>電話 :</h2>
-                <h3>{{ order.user.tel }}</h3>
+                <h3>電話 :</h3>
+                <p>{{ order.user.tel }}</p>
                 <hr />
-                <h2>付款狀態 :</h2>
-                <h3
+                <h3>付款狀態 :</h3>
+                <p
                   :class="{
                     'text-danger': !order.is_paid,
                     'text-success': order.is_paid
                   }"
                 >
                   {{ order.is_paid ? '完成付款' : '尚未付款' }}
-                </h3>
+                </p>
                 <hr />
-                <h2>留言訊息 :</h2>
-                <h3>
+                <h3>留言訊息 :</h3>
+                <p>
                   {{ order.message ? order.message : '沒有留言' }}
-                </h3>
+                </p>
               </div>
             </div>
           </div>

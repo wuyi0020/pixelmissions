@@ -44,11 +44,14 @@
                 </div>
               </div>
             </div>
-            <img
-              v-if="User.imageUrl"
-              class="card-img-top ratio-1x1"
-              :src="User.imageUrl"
-            />
+            <div class="text-center">
+              <img
+                v-if="User.imageUrl"
+                class="card-img-top w-50 ratio-1x1"
+                :src="User.imageUrl"
+              />
+            </div>
+
             <div class="mt-3 d-flex justify-content-center">
               <button
                 type="button"
@@ -59,37 +62,37 @@
               </button>
             </div>
             <div class="mt-3">
-              <label class="fs-1">名稱：</label>
+              <label class="">名稱：</label>
               <input
                 type="text"
-                class="form-control fs-3"
+                class="form-control"
                 placeholder="使用者名稱"
                 v-model="User.title"
               />
             </div>
             <div class="mt-3">
-              <label class="fs-1">自我描述</label>
+              <label class="">自我描述：</label>
               <input
                 type="text"
-                class="form-control fs-3"
+                class="form-control"
                 placeholder="描述"
                 v-model="User.description"
               />
             </div>
             <div class="mt-3">
-              <label class="fs-1">帳號/Email</label>
+              <label class="">帳號/Email :</label>
               <input
                 type="text"
-                class="form-control fs-3"
+                class="form-control"
                 placeholder="Email"
                 v-model="User.email"
               />
             </div>
             <div class="mt-3">
-              <label class="fs-1">密碼</label>
+              <label class="">密碼：</label>
               <input
                 type="password"
-                class="form-control fs-3"
+                class="form-control"
                 placeholder="Password"
                 v-model="User.password"
               />
@@ -148,7 +151,7 @@ export default {
       }
     },
     cancel () {
-      this.$router.push(`/dashboard/art/${this.userID}`)
+      this.$router.push(`/usercenter/${this.userID}`)
     },
     done () {
       this.setAdminToken()
@@ -189,12 +192,10 @@ export default {
         toastr.error('請選擇圖片')
         return
       }
-      axios
-        .post(uploadUrl, formData)
-        .then((res) => {
-          this.User.imageUrl = res.data.imageUrl
-          this.done()
-        })
+      axios.post(uploadUrl, formData).then((res) => {
+        this.User.imageUrl = res.data.imageUrl
+        this.done()
+      })
     },
     async UserDataCheck () {
       if (this.User.email === '' || this.User.password === '') {

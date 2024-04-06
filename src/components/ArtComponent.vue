@@ -17,7 +17,7 @@
         :class="{ 'fs-4': showPrice, 'fs-5': !showPrice }"
       >
         {{ item.title }}
-        <span v-if="showUpload" class="text fs-6 text-secondary ms-auto">
+        <span v-if="showUpload" class="text fs-6 text-primary-emphasis ms-auto">
           已上傳 {{ item.ArtQuantity }}
         </span>
       </p>
@@ -43,7 +43,7 @@
     </div>
     <p
       v-show="showPrice"
-      class="card-body flex-grow-1 bg-dark-subtle mb-0 card-text text-secondary border-0 fs-5"
+      class="card-body flex-grow-1 bg-dark-subtle mb-0 card-text border-0"
     >
       {{ item.description }}
     </p>
@@ -133,5 +133,8 @@ export default {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
   transform: translateY(-5px) scale(1.05);
   transition: transform 0.3s;
+}
+.page-link {
+  color: var(--primary-text-emphasis);
 }
 </style>

@@ -41,7 +41,7 @@
         <div class="pt-2">
           <router-link
             :to="`/usercomission/${userID}`"
-            class="btn btn-outline-secondary w-100 rounded-pill"
+            class="btn btn-outline-primary w-100 rounded-pill text-white"
             >查看約稿方案</router-link
           >
         </div>
@@ -55,21 +55,21 @@
           </div>
           <button
             type="button"
-            class="btn btn-outline-secondary"
+            class="btn btn-outline-primary"
             @click.prevent="likeArt(haslike)"
           >
             <i
-              class="bi"
+              class="bi text-white"
               :class="{ 'bi-heart-fill': haslike, 'bi-heart': !haslike }"
               >{{ haslike ? ' 已收藏' : ' 收藏' }} {{ art.like }}</i
             >
           </button>
           <button
             type="button"
-            class="btn ms-3 btn-outline-secondary"
+            class="btn ms-3 btn-outline-primary"
             @click.prevent="ShareArt()"
           >
-            <i class="bi bi-arrow-90deg-right">分享</i>
+            <i class="bi bi-arrow-90deg-right text-white">分享</i>
           </button>
         </div>
       </div>
@@ -115,7 +115,7 @@
           <a
             href=""
             @click.prevent="PushUrl('/usercenter/' + author.id)"
-            class="link-secondary ms-auto link-underline link-opacity-50 link-underline-opacity-25 link-opacity-100-hover"
+            class="link-secondary ms-auto text-white link-underline link-underline-opacity-25 link-opacity-100-hover"
             >查看作品</a
           >
         </div>

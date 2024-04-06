@@ -12,6 +12,7 @@ export default defineStore('UserState', {
     userHasLogIn: false,
     AdminToken: null,
     Alldata: null,
+    userData: null,
     lastGetAllDataTime: 0
   }),
   getters: {
@@ -139,14 +140,20 @@ export default defineStore('UserState', {
         toastr.error('登入失敗 請稍後再試')
       }
     },
-    checkUserLogin (push = true) {
+    async checkUserLogin (pushPage = true) {
       this.userID = this.getCookie('UserID')
       if (this.userID) {
         this.userHasLogIn = true
+        if (!this.Alldata) {
+          await this.getAlldata()
+          this.userData = this.Alldata[this.userID]
+        } else {
+          this.userData = this.Alldata[this.userID]
+        }
       } else {
         this.userHasLogIn = false
         // 跳轉至登入頁面
-        if (push) {
+        if (pushPage) {
           this.$router.push('/login')
           toastr.warning('請先登入')
         }

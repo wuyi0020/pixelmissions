@@ -78,7 +78,7 @@
           :to="{ name: 'ComissionView', params: { id: thisUserID } }"
           class="text-decoration-none "
         >
-          <span class="text-secondary"> 查看全部 </span>
+          <span class="text-primary"> 查看全部 </span>
         </router-link>
         <hr />
       </div>

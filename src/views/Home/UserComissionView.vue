@@ -5,10 +5,10 @@
   <div class="container">
     <div class="row pt-0">
       <div class="col-12 d-flex align-items-center">
-        <div class="me-2 headeimg">
+        <div class="me-2 headeimg" style="width: 100px; height: 100px">
           <img
             :src="authorData.imageUrl"
-            class="rounded-circle"
+            class="rounded-circle object-fit-cover w-100 h-100"
             alt="作者"
           />
         </div>

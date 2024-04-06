@@ -12,12 +12,14 @@
           <div class="container">
             <div class="row align-items-center">
               <div class="col-12">
-                <h3 class="h3 pt-5 text-break mw-100">
-                  累積粉絲 尋找合作機會？
-                </h3>
-                <h3 class="h3 pb-5 text-break mw-100">
-                  使用 Pixel Missions 滿足這一切
-                </h3>
+                <div class="position-relative w-100 h-100 bg-black bg-opacity-25 p-5 ">
+                  <h3 class="fs-6 fs-sm-3 text-break mw-100">
+                    累積粉絲 尋找合作機會？
+                  </h3>
+                  <h3 class="fs-6 fs-sm-3 text-break mw-100">
+                    使用 Pixel Missions 滿足這一切
+                  </h3>
+                </div>
               </div>
             </div>
           </div>

@@ -12,15 +12,16 @@
             alt="作者"
           />
         </div>
-        <div>
-          <p>
+        <div class="d-flex align-items-center">
+          <h3 class="">
             {{ authorData.title }}
-            <span
-              v-if="userID === ThisComissionData.author"
-              class="text text-secondary"
-              >(自我檢視)</span
-            >
-          </p>
+          </h3>
+          <div
+            v-if="userID === ThisComissionData.author"
+            class="text text-secondary mx-2"
+          >
+            (自我檢視)
+          </div>
         </div>
       </div>
     </div>
@@ -41,15 +42,15 @@
               <h1 class="card-title">
                 {{ ThisComissionData.title }}
               </h1>
-              <p class="text-secondary mb-0">
+              <p class="mb-0">
                 {{ ThisComissionData.description }}
               </p>
-              <p class=" text-secondary">
+              <p class="">
                 {{ ThisComissionData.content }}
               </p>
             </div>
             <div class="mb-5">
-              <span > {{ ThisComissionData.price }} TWD</span>
+              <span> {{ ThisComissionData.price }} TWD</span>
             </div>
             <router-link
               :to="{
@@ -145,7 +146,7 @@ export default {
         this.$router.push('/')
       }
       if (this.ThisComissionData.category !== '報價') {
-        this.$router.push(`/usercomission/${this.userID}`)
+        this.$router.replace(`/usercomission/${this.userID}`)
       }
       this.authorID = this.ThisComissionData.author
       this.authorData = this.Alldata[this.authorID]

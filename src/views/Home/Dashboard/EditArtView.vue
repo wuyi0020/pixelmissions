@@ -22,7 +22,7 @@
                 }"
               >
                 <div
-                  class="d-flex justify-content-center mw-100 ratio ratio-1x1"
+                  class="d-flex justify-content-center mw-50 ratio ratio-1x1"
                   :class="{ uploadStyle: art.imageUrl == '' }"
                 >
                   <label
@@ -41,18 +41,20 @@
                     <img
                       :src="art.imageUrl"
                       ref="imagePreview2"
-                      class="mw-100 ratio-1x1"
+                      class="mw-50 ratio-1x1"
                     />
                   </label>
                 </div>
               </div>
             </div>
-            <img
-              v-if="art.imageUrl"
-              class="card-img-top ratio-1x1"
-              :src="art.imageUrl"
-              alt="作品圖片"
-            />
+            <div class="text-center">
+              <img
+                v-if="art.imageUrl"
+                class="card-img-top w-50 ratio-1x1"
+                :src="art.imageUrl"
+                alt="作品圖片"
+              />
+            </div>
             <div class="mt-3 d-flex justify-content-center">
               <button
                 type="button"
@@ -63,36 +65,36 @@
               </button>
             </div>
             <div class="mt-3">
-              <label class="fs-1">
+              <label class="">
                 <span v-if="art.category === '作品'">作品名稱：</span>
                 <span v-if="art.category === '報價'">方案名稱：</span>
               </label>
               <input
                 type="text"
-                class="form-control fs-3"
+                class="form-control"
                 placeholder="作品名稱"
                 v-model="art.title"
               />
             </div>
             <div class="mt-3">
-              <label class="fs-1">
+              <label class="">
                 <span v-if="art.category === '作品'">作品描述</span>
                 <span v-if="art.category === '報價'">方案描述</span>
               </label>
               <input
                 type="text"
-                class="form-control fs-3"
+                class="form-control"
                 placeholder="作品描述"
                 v-model="art.description"
               />
             </div>
             <div v-if="art.category === '報價'" class="mt-3">
-              <label class="fs-1">
+              <label class="">
                 <span>方案價格</span>
               </label>
               <input
                 type="text"
-                class="form-control fs-3"
+                class="form-control"
                 placeholder="方案價格"
                 v-model="art.price"
               />
@@ -202,12 +204,10 @@ export default {
         toastr.error('請選擇圖片')
         return
       }
-      axios
-        .post(uploadUrl, formData)
-        .then((res) => {
-          this.art.imageUrl = res.data.imageUrl
-          this.done()
-        })
+      axios.post(uploadUrl, formData).then((res) => {
+        this.art.imageUrl = res.data.imageUrl
+        this.done()
+      })
     }
   },
   async mounted () {

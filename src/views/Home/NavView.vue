@@ -1,52 +1,69 @@
 <template>
   <div class="d-flex align-content-center min-vh-100 flex-column p-0">
-    <nav
-      class="navbar navbar-expand-lg navbar-static-top navbar-dark border-bottom"
-    >
-      <div class="container-fluid">
-        <RouterLink to="/" class="navbar-brand">Pixel Missions</RouterLink>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
-          aria-controls="navbarContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarContent">
-          <ul class="navbar-nav navbar-nav-scroll">
-            <!-- <li class="nav-item">
+    <div class="navbar-top-sticky">
+      <nav class="navbar navbar-expand-lg navbar-dark border-bottom">
+        <div class="container-fluid">
+          <RouterLink to="/" class="navbar-brand">Pixel Missions</RouterLink>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav navbar-nav-scroll">
+              <!-- <li class="nav-item">
               <RouterLink class="nav-link" to="/about">關於我們</RouterLink>
             </li> -->
-            <li class="nav-item">
-              <RouterLink class="nav-link" to="/author">瀏覽作者</RouterLink>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/allart">瀏覽作品</router-link>
-            </li>
-          </ul>
-          <ul class="navbar-nav d-flex ms-auto">
-            <li class="nav-item" v-if="userHasLogIn">
-              <RouterLink class="nav-link" to="/order">委託訂單</RouterLink>
-            </li>
-            <div class="nav-item" v-if="userHasLogIn">
-              <RouterLink class="nav-link" :to="`/usercenter/${userID}`"
-                >會員中心</RouterLink
-              >
-            </div>
-            <div class="nav-item" v-if="userHasLogIn">
-              <button type="button" class="nav-link" @click="UserLogout()">登出</button>
-            </div>
-            <div class="nav-item" v-else>
-              <RouterLink class="nav-link" to="/login">登入</RouterLink>
-            </div>
-          </ul>
+              <li class="nav-item">
+                <RouterLink class="nav-link" to="/author">瀏覽作者</RouterLink>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/allart"
+                  >瀏覽作品</router-link
+                >
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+              <li class="nav-item" v-if="userHasLogIn">
+                <RouterLink class="nav-link" to="/order">委託訂單</RouterLink>
+              </li>
+              <div class="nav-item" v-if="userHasLogIn">
+                <RouterLink class="nav-link" :to="`/usercenter/${userID}`">
+                  <div class="d-flex align-items-lg-center">
+                    <div
+                      v-if="userData"
+                      class="d-none me-1 d-lg-block"
+                      style="width: 40px; height: 40px"
+                    >
+                      <img
+                        :src="userData.imageUrl"
+                        class="d-none d-lg-block rounded-circle object-fit-cover w-100 h-100"
+                        alt="作者"
+                      />
+                    </div>
+                    <div>會員中心</div>
+                  </div>
+                </RouterLink>
+              </div>
+              <div class="nav-item" v-if="userHasLogIn">
+                <button type="button" class="nav-link" @click="UserLogout()">
+                  登出
+                </button>
+              </div>
+              <div class="nav-item" v-else>
+                <RouterLink class="nav-link" to="/login">登入</RouterLink>
+              </div>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
     <div class="d-flex flex-grow-1 flex-column flex-wrap">
       <RouterView :key="$route.fullPath" />
     </div>
@@ -99,7 +116,14 @@ import UserState from '@/stores/UserState.js'
 // import * as router from "vue-router";
 // import toastr from "toastr";
 
-const state = ['userName', 'userEmail', 'userID', 'userHasLogIn', 'AdminToken']
+const state = [
+  'userName',
+  'userEmail',
+  'userID',
+  'userHasLogIn',
+  'AdminToken',
+  'userData'
+]
 const actions = [
   'checkUserLogin',
   'UserLogout',
@@ -115,8 +139,7 @@ export default {
   computed: {
     ...mapState(UserState, state)
   },
-  mounted () {
-    // this.checkUserLogin()
+  async mounted () {
     this.getAlldata()
     this.AdminTokenCheck()
     this.$router.beforeEach(() => {
@@ -126,7 +149,6 @@ export default {
       }
     })
     this.checkUserLogin(false)
-    // console.log(this.userHasLogIn)
   }
 }
 </script>

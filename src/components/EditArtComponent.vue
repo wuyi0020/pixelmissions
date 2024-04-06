@@ -6,28 +6,28 @@
       alt="作品圖片"
     />
     <div class="card-body border align-self-stretch bg-dark-subtle">
-      <p class="mb-0 card-text border-top-0 fs-3">
+      <p class="mb-0 card-text border-top-0 h3">
         {{ item.title }}
       </p>
-      <p class="mb-0 card-text text-end border-top-0 fs-3">
+      <p class="mb-0 card-text text-end border-top-0">
         <i class="bi bi-heart-fill"></i>
         {{ item.like }}
       </p>
       <p
         v-if="item.category === '報價'"
-        class="mb-0 card-text text-end border-top-0 fs-3"
+        class="mb-0 card-text text-end border-top-0 "
       >
         <i class="bi bi-cash"></i>
         {{ item.price }}
       </p>
       <p
-        class="mb-0 d-flex flex-column card-text text-end border-top-0 fs-3 mt-2"
+        class="mb-0 d-flex flex-column card-text text-end border-top-0 mt-2"
       >
         <router-link
           class=""
           :to="{ name: 'EditArtView', params: { id: item.id } }"
         >
-          <button type="button" class="btn w-100 btn-secondary btn-lg">
+          <button type="button" class="btn w-100 btn-primary btn-lg">
             <span v-if="item.category === '作品'">
               <i class="bi bi-pencil-square"></i>
               修改作品
@@ -40,7 +40,7 @@
         </router-link>
         <button
           type="button"
-          class="btn btn-danger btn-lg mt-2"
+          class="btn btn-outline-danger btn-lg mt-2"
           @click.prevent="deleteItem(item)"
         >
           <span v-if="item.category === '作品'">

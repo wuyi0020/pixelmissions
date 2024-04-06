@@ -1,6 +1,34 @@
+$primary: #6ea8fe;
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules//bootstrap/scss/variables-dark";
+@import "../node_modules/bootstrap/scss/maps";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/utilities";
+// Override the default primary color
+// 通过 map-merge() 函数将 $primary 变量添加到 $theme-colors 变量中
+$theme-colors: map-merge(
+  $theme-colors,
+  (
+    "primary": $primary,
+  )
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "font-size":
+      map-merge(
+        map-get($utilities, "font-size"),
+        (
+          responsive: true,
+        )
+      ),
+  )
+);
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
-
 // .ratio-1x1 {
 //   @include media-breakpoint-up(md) {
 //     --bs-aspect-ratio: 50%; // 2x1
@@ -70,4 +98,24 @@
   background-image: url(/resources/Summer3.png);
   background-repeat: repeat;
   background-position: center;
+}
+button.page-link {
+  color: #fff;
+}
+.active .page-link {
+  color: $primary-text-emphasis;
+}
+.page-link.disabled,
+.disabled > .page-link {
+  color: $gray-600;
+  background-color: var(--bs-pagination-bg);
+}
+.nav-link {
+  color: #fff;
+}
+.navbar-top-sticky {
+  position: sticky;
+  background-color: var(--bs-body-bg);
+  top: 0;
+  z-index: 1000;
 }
