@@ -11,10 +11,10 @@
   <div class="container">
     <div class="row pt-0">
       <div class="col-12 d-flex align-items-center">
-        <RouterLink :to="{ name: 'UserCenter', params: { id: authorID } }">
+        <RouterLink :to="{ name: 'UserCenter', params: { id: `${authorID}` } }">
           <i class="bi bi-caret-left-fill h1 text-white-50"></i>
         </RouterLink>
-        <RouterLink :to="{ name: 'UserCenter', params: { id: authorID } }">
+        <RouterLink :to="{ name: 'UserCenter', params: { id: `${authorID}` } }">
           <div class="me-2" style="width: 60px; height: 60px">
             <img
               :src="authorData.imageUrl"
@@ -24,7 +24,7 @@
           </div>
         </RouterLink>
         <RouterLink
-          :to="{ name: 'UserCenter', params: { id: authorID } }"
+          :to="{ name: 'UserCenter', params: { id: `${authorID}` } }"
           class="text text-white link-underline link-underline-opacity-0"
         >
           <div class="m-0 p-0 h3">{{ authorData.title }}</div>

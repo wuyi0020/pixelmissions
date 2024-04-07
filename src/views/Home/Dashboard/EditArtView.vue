@@ -5,8 +5,32 @@
         <div class="card mt-3">
           <div class="card-body">
             <h1 class="card-title">
-              <span v-if="art.category === '作品'">編輯作品</span>
-              <span v-if="art.category === '報價'">編輯方案</span>
+              <RouterLink
+                v-if="artAuthor && art.category === '作品'"
+                :to="{
+                  name: 'DashboardArt',
+                  params: { id: `${artAuthor}` }
+                }"
+                class="text text-white link-underline link-underline-opacity-0 d-flex"
+              >
+                <span v-if="art.category === '作品'">
+                  <i class="bi bi-caret-left-fill h1 text-white-50"></i>
+                  編輯作品
+                </span>
+              </RouterLink>
+              <RouterLink
+                v-if="artAuthor && art.category === '作品'"
+                :to="{
+                  name: 'DashboardComission',
+                  params: { id: `${artAuthor}` }
+                }"
+                class="text text-white link-underline link-underline-opacity-0 d-flex"
+              >
+                <span v-if="art.category === '報價'">
+                  <i class="bi bi-caret-left-fill h1 text-white-50"></i>
+                  編輯方案
+                </span>
+              </RouterLink>
             </h1>
             <div
               class="justify-content-center"

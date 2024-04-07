@@ -4,7 +4,15 @@
       <div class="col-12 col-md-9 col-lg-6">
         <div class="card mt-3">
           <div class="card-body">
-            <h1 class="card-title">編輯使用者資料</h1>
+            <div class="" v-if="User.id">
+              <RouterLink
+                :to="{ name: 'UserCenter', params: { userid: User.id } }"
+                class="text text-white link-underline link-underline-opacity-0 d-flex"
+              >
+                <i class="bi bi-caret-left-fill h1 text-white-50"></i>
+                <h1 class="card-title">編輯使用者資料</h1>
+              </RouterLink>
+            </div>
             <div
               class="justify-content-center"
               :class="{

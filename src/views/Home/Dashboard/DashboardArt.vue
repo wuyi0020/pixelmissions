@@ -3,7 +3,14 @@
     <div class="container pt-5">
       <div class="row">
         <div class="col-12">
-          <h1 class="text-center">編輯作品</h1>
+          <RouterLink
+            :to="{ name: 'UserCenter', params: { userid: `${userID}` } }"
+            class="text text-white link-underline link-underline-opacity-0 d-flex"
+          >
+            <h1>
+              <i class="bi bi-caret-left-fill h1 text-white-50"></i>編輯作品
+            </h1>
+          </RouterLink>
           <hr />
         </div>
       </div>
