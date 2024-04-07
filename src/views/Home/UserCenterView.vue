@@ -1,4 +1,10 @@
 <template>
+  <loading
+    v-model:active="isLoading"
+    :can-cancel="true"
+    :on-cancel="onCancel"
+    :is-full-page="fullPage"
+  />
   <div class="container-fluid">
     <div class="row bg-dark-subtle topband bg-5dot" id="topband"></div>
   </div>
@@ -12,8 +18,45 @@
             alt="作者"
           />
         </div>
-        <div>
-          <h3>{{ userData.title }}</h3>
+        <div class="d-flex align-items-end">
+          <div class="h3 m-0 p-0">{{ userData.title }}</div>
+          <router-link
+            :to="{ name: 'userFollowArt' }"
+            v-if="userData.likeList"
+            class="link-underline link-underline-opacity-0"
+          >
+            <div
+              class="ms-2 text-primary link-underline link-underline-opacity-0"
+            >
+              收藏的作品 {{ userData.likeList.length }}
+            </div>
+          </router-link>
+          <div v-else class="link-underline link-underline-opacity-0">
+            <div
+              class="ms-2 text-white-50 link-underline link-underline-opacity-0"
+            >
+              尚未收藏作品
+            </div>
+          </div>
+          <div class="text mx-2"> | </div>
+          <router-link
+            :to="{ name: 'userFollowUser' }"
+            v-if="userData.followList"
+            class="link-underline link-underline-opacity-0"
+          >
+            <div
+              class="text-primary link-underline link-underline-opacity-0"
+            >
+              追隨中 {{ userData.followList.length }}
+            </div>
+          </router-link>
+          <div v-else class="link-underline link-underline-opacity-0">
+            <div
+              class="ms-2 text-white-50 link-underline link-underline-opacity-0"
+            >
+              尚未追隨任何人
+            </div>
+          </div>
         </div>
       </div>
       <div class="row pt-3">
@@ -22,41 +65,44 @@
         </div>
       </div>
     </div>
-    <div
-      class="row border py-3 border-2 rounded-pill bg-dark-subtle"
+    <button
       v-if="$route.params.userid == userID"
+      type="button"
+      class="btn btn-outline-primary btn-lg my-3 mx-0 usercenterBtnToggle"
+      data-bs-toggle="collapse"
+      data-bs-target="#usercenterbtns"
+      aria-expanded="false"
+      aria-controls="usercenterbtns"
     >
-      <div class="d-flex justify-content-end align-items-center">
-        <h3 class="me-auto p-0 m-0">創作儀表板</h3>
+      儀錶板
+    </button>
+    <div
+      class="row row-cols-1 row-cols-lg-3 text-center m-0 border border-2 bg-dark-subtle collapse"
+      v-if="$route.params.userid == userID"
+      id="usercenterbtns"
+    >
+      <div class="col border p-0 position-relative">
         <router-link
           :to="{ name: 'EditUserView', params: { id: userID } }"
-          class="btn btn-primary rounded-pill text-center ms-3"
+          class="btn text-center stretched-link"
           type="button"
-          ><h3 class="m-0">修改使用者資料</h3>
+          ><h3 class="m-0 p-0">修改使用者資料</h3>
         </router-link>
+      </div>
+      <div class="col border p-0 position-relative">
         <router-link
           :to="{ name: 'DashboardComission', params: { id: userID } }"
-          class="btn btn-primary rounded-pill text-center ms-3"
+          class="btn text-center stretched-link"
           type="button"
-          ><h3 class="m-0">修改方案</h3>
+          ><h3 class="m-0 p-0">修改方案</h3>
         </router-link>
+      </div>
+      <div class="col border p-0 position-relative">
         <router-link
           :to="`/dashboard/art/${userID}`"
-          class="btn btn-primary rounded-pill text-center ms-3"
+          class="btn text-center stretched-link"
           type="button"
           ><h3 class="m-0">修改作品</h3>
-        </router-link>
-        <router-link
-          to="/upload"
-          class="btn btn-primary rounded-pill text-center ms-3"
-          type="button"
-          ><h3 class="m-0">上傳作品</h3>
-        </router-link>
-        <router-link
-          to="/uploadcomission"
-          class="btn btn-primary rounded-pill text-center ms-3"
-          type="button"
-          ><h3 class="m-0">上傳方案</h3>
         </router-link>
       </div>
     </div>
@@ -76,7 +122,7 @@
         <h1 class="pt-3 d-inline-block">贊助/約稿方案</h1>
         <router-link
           :to="{ name: 'ComissionView', params: { id: thisUserID } }"
-          class="text-decoration-none "
+          class="text-decoration-none"
         >
           <span class="text-primary"> 查看全部 </span>
         </router-link>
@@ -105,7 +151,7 @@
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
 import ArtComponent from '@/components/ArtComponent.vue'
-
+import Loading from 'vue-loading-overlay'
 const state = [
   'userName',
   'userEmail',
@@ -125,7 +171,8 @@ export default {
     }
   },
   components: {
-    ArtComponent
+    ArtComponent,
+    Loading
   },
   methods: {
     ...mapActions(UserState, actions),
@@ -156,7 +203,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(UserState, state)
+    ...mapState(UserState, state),
+    isLoading: {
+      get () {
+        return !this.Alldata
+      }
+    }
   },
   mounted () {
     this.checkUserLogin()

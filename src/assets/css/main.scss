@@ -25,15 +25,17 @@ $utilities: map-merge(
           responsive: true,
         )
       ),
+    "width":
+      map-merge(
+        map-get($utilities, "width"),
+        (
+          responsive: true,
+        )
+      ),
   )
 );
 // Import all of Bootstrap's CSS
 @import "bootstrap/scss/bootstrap";
-// .ratio-1x1 {
-//   @include media-breakpoint-up(md) {
-//     --bs-aspect-ratio: 50%; // 2x1
-//   }
-// }
 .headeimg {
   margin-top: -40px;
 }
@@ -45,6 +47,11 @@ $utilities: map-merge(
 }
 .img-container {
   width: 100%;
+  aspect-ratio: 1 / 1;
+}
+.btn-container {
+  width: auto;
+  min-width: 58px;
   aspect-ratio: 1 / 1;
 }
 .scrollbar1::-webkit-scrollbar {
@@ -86,7 +93,7 @@ $utilities: map-merge(
     --bs-aspect-ratio: 33%; // 1:3
   }
   @include media-breakpoint-between(md, lg) {
-    --bs-aspect-ratio: 50%; // 1:3
+    --bs-aspect-ratio: 50%; // 1:2
   }
 }
 .bg-5dot {
@@ -103,7 +110,7 @@ button.page-link {
   color: #fff;
 }
 .active .page-link {
-  color: $primary-text-emphasis;
+  color: black;
 }
 .page-link.disabled,
 .disabled > .page-link {
@@ -118,4 +125,20 @@ button.page-link {
   background-color: var(--bs-body-bg);
   top: 0;
   z-index: 1000;
+  @media (min-width: 993px) {
+    height: 72px;
+  }
+}
+.navbar {
+  @media (min-width: 993px) {
+    height: 72px;
+  }
+}
+.usercenterBtnToggle[aria-expanded="false"] {
+  color: $primary-text-emphasis-dark;
+  background-color: var(--bs-body-bg);
+}
+.usercenterBtnToggle[aria-expanded="true"] {
+  color: black;
+  background-color: $primary;
 }

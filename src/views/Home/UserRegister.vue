@@ -130,10 +130,8 @@ export default {
         /(?:(?:^|.*;\s*)RegToken\s*=\s*([^;]*).*$)|^.*$/,
         '$1'
       )
-      // console.log("token", token);
       // 如果有token就跳過註冊檢查
       if (token) {
-        // console.log("token", token);
         this.checkUserduplicates(token)
         return
       }
@@ -183,7 +181,7 @@ export default {
           if (account.length === 0) {
             this.register(token)
           } else {
-            this.warningText = '使用者名稱已存在'
+            this.warningText = '信箱已註冊'
             this.warningswitch = true
           }
         })
@@ -201,6 +199,7 @@ export default {
         username: this.username,
         password: this.password,
         email: this.email,
+        likeList: [],
         is_enabled: 1,
         imageUrl: 'https://fakeimg.pl/500x500/?retina=1&text=Not%20Set%20Head'
       }
@@ -213,7 +212,7 @@ export default {
         })
         .then(() => {
           toastr.success('註冊成功')
-          this.$router.push({ name: 'Login' })
+          this.$router.push({ name: 'login' })
         })
         .catch(() => {
           toastr.warning('註冊失敗 請稍後再試')

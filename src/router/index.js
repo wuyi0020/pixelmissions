@@ -47,6 +47,16 @@ const routes = [
         component: () => import('@/views/Home/UserComissionView.vue')
       },
       {
+        path: 'userfollowart/:userid',
+        name: 'userFollowArt',
+        component: () => import('@/views/Home/UserFollowArtView.vue')
+      },
+      {
+        path: 'userfollowuser/:userid',
+        name: 'userFollowUser',
+        component: () => import('@/views/Home/UserFollowUserView.vue')
+      },
+      {
         path: 'faq',
         name: 'Faq',
         component: () => import('@/views/Home/AboutView.vue')

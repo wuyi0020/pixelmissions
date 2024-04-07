@@ -99,8 +99,6 @@ export default defineStore('UserState', {
         toastr.error('請輸入帳號密碼')
         return
       }
-      // // 登入檢查
-      // const token = await this.setAdminToken()
 
       await this.getAlldata()
       try {
@@ -175,7 +173,6 @@ export default defineStore('UserState', {
     },
     PushUrl (Url) {
       this.$router.push(Url)
-      // location.reload();
     },
     resetUserState () {
       this.userName = null

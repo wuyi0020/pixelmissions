@@ -63,7 +63,6 @@
 import axios from 'axios'
 import UserState from '@/stores/UserState.js'
 import { mapState, mapActions } from 'pinia'
-// import toastr from 'toastr'
 
 import * as VeeValidate from 'vee-validate'
 import * as VeeValidateRules from '@vee-validate/rules'
@@ -85,11 +84,6 @@ VeeValidate.configure({
 })
 
 export default {
-  components: {
-    // VField: VeeValidate.VField,
-    // VForm: VeeValidate.VForm,
-    // ErrorMessage: VeeValidate.ErrorMessage
-  },
   data () {
     return {
       edit: false,

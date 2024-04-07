@@ -348,16 +348,13 @@ export default {
   methods: {
     ...mapActions(UserState, actions),
     async GetData () {
-      await this.getAlldata(true)
-      Object.values(this.Alldata).forEach((item) => {
-        if (item.category === '作品') {
-          this.Artwork[item.id] = item
-        } else if (item.category === '使用者') {
-          this.UserList[item.id] = item
-        } else if (item.category === '報價') {
-          this.ComissionList[item.id] = item
-        }
-      })
+      const data = await this.getAlldata(true)
+      this.subGroup(Object.values(data))
+    },
+    subGroup (data) {
+      this.Artwork = data.filter((item) => item.category === '作品')
+      this.UserList = data.filter((item) => item.category === '使用者')
+      this.ComissionList = data.filter((item) => item.category === '報價')
     },
     editProduct (item) {
       editModal.show()
@@ -385,13 +382,13 @@ export default {
       deletModal.show()
       this.tempProduct = { ...item }
     },
-    deletProductConfirm () {
+    deleteProductConfirm () {
       const key = this.tempProduct.id
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${key}`
       axios.defaults.headers.common.Authorization =
         this.getCookie('DashbordAdminToken')
       axios.delete(url).then(() => {
-        this.getAlldata(true)
+        this.GetData()
         toastr.success('刪除成功')
       })
       deletModal.hide()

@@ -333,7 +333,6 @@ export default {
       return moment(date * 1000).format('YYYY-MM-DD')
     },
     updatePaid (item) {
-      console.log(item.id)
       this.isLoading = true
       const api = `${VITE_URL}/api/${VITE_API_PATH}/admin/order/${item.id}`
       const paid = {

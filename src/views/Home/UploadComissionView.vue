@@ -203,7 +203,6 @@ export default {
     }
   },
   mounted () {
-    // const fileInput = document.getElementById("fileInput");
     this.$refs.imgfileInput.addEventListener('change', this.imagePreview)
     this.setAdminToken()
     this.checkUserLogin()
@@ -221,7 +220,6 @@ export default {
     filechack () {
       if (this.fileUrl === '') {
         this.fileError = true
-        // toastr.error("請選擇圖片");
       }
     },
     uploadPrduct () {
@@ -236,7 +234,6 @@ export default {
       axios.defaults.headers.common.Authorization = this.AdminToken
       this.ArtData.author = this.userID
       this.ArtData.time = new Date().getTime()
-      console.log(this.ArtData)
       if (this.fileUrl === '') {
         this.fileError = true
         // toastr.error("請選擇圖片");
@@ -248,16 +245,11 @@ export default {
         .then((res) => {
           this.fileUrl = res.data.imageUrl
           this.ArtData.imageUrl = res.data.imageUrl
-          console.log(this.ArtData)
           return axios.post(uploadArtUrl, { data: this.ArtData })
         })
         .then((res) => {
-          console.log(res)
           this.$router.push(`/usercenter/${this.userID}`)
           toastr.success('上傳成功')
-        })
-        .catch((err) => {
-          console.log(err)
         })
     }
   },

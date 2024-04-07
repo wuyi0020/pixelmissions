@@ -168,7 +168,6 @@
   </div> -->
 </template>
 <script>
-// axios
 import axios from 'axios'
 import moment from 'moment'
 import { mapState, mapActions } from 'pinia'
@@ -269,7 +268,6 @@ export default {
         Userdata.likeList = [...likeListSet]
         this.haslike = likeListSet.has(this.art.id)
       }
-      console.log('this.haslike', this.haslike)
       axios.defaults.headers.common.Authorization = this.AdminToken
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/product/${this.art.id}`
 
@@ -284,9 +282,6 @@ export default {
           this.art = artData
           this.User = Userdata
         })
-        .catch((error) => {
-          console.log(error)
-        })
     },
     ShareArt () {
       navigator.clipboard
@@ -296,9 +291,6 @@ export default {
         })
         .catch(() => {
           toastr.warning('複製失敗')
-        })
-        .finally(() => {
-          console.log('finally')
         })
     },
     followAuthor () {
@@ -329,9 +321,6 @@ export default {
         })
         .then(() => {
           this.User = Userdata
-        })
-        .catch((error) => {
-          console.log(error)
         })
     }
   }

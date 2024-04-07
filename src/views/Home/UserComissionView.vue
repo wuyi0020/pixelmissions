@@ -27,7 +27,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h1 class="py-3">所有方案</h1>
+        <h3 class="pt-3">所有方案</h3>
       </div>
       <div class="row row-cols-2 row-cols-md-3 g-0 g-md-2 gx-lg-4">
         <div v-for="item in authorComission" :key="item.id">
@@ -68,18 +68,15 @@ export default {
     ...mapActions(UserState, actions),
     async GetAuthorData () {
       await this.getAlldata()
-      // this.userData = {...this.Alldata[this.userID]};
       this.authorID = this.$route.params.userid
       this.authorComission = Object.values(this.Alldata).filter(
         (item) => item.category === '報價' && item.author === this.authorID
       )
       this.authorData = this.Alldata[this.authorID]
-      // console.log(this.$route.params);
     }
   },
   async mounted () {
     await this.checkUserLogin()
-    console.log(this.userHasLogIn)
     if (this.userHasLogIn) {
       await this.GetAuthorData()
     }

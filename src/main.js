@@ -20,6 +20,8 @@ import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
 import { LoadingPlugin } from 'vue-loading-overlay'
 import toastr from 'toastr'
+import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 
 import router from './router'
 import App from './App.vue'
@@ -33,5 +35,6 @@ pinia.use(({ store }) => {
 app.use(router)
 app.use(LoadingPlugin)
 app.use(toastr)
+app.use(VueSweetalert2)
 
 app.mount('#app')

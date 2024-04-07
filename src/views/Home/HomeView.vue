@@ -1,22 +1,30 @@
 <template>
   <div class="home">
+    <loading
+      v-model:active="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
     <div class="container-fluid bg bg-light bg-opacity-50 bg-summer">
       <div class="row vh-50 align-content-center m-0">
         <!-- <div
           v-if="!userHasLogIn"
           class="col-12 pt-3 text-end bg-body-secondary"
         >
-          <h1>還沒註冊？註冊取得所有功能<i class="bi bi-arrow-up"></i></h1>
+          <h3>還沒註冊？註冊取得所有功能<i class="bi bi-arrow-up"></i></h3>
         </div> -->
         <div class="col-12">
           <div class="container">
             <div class="row align-items-center">
               <div class="col-12">
-                <div class="position-relative w-100 h-100 bg-black bg-opacity-25 p-5 ">
-                  <h3 class="fs-6 fs-sm-3 text-break mw-100">
+                <div
+                  class="position-relative w-100 h-100 bg-black bg-opacity-25 p-5"
+                >
+                  <h3 class="fs-6 fs-sm-3 text-break mw-100 fw-bold">
                     累積粉絲 尋找合作機會？
                   </h3>
-                  <h3 class="fs-6 fs-sm-3 text-break mw-100">
+                  <h3 class="fs-6 fs-sm-3 text-break mw-100 fw-bold">
                     使用 Pixel Missions 滿足這一切
                   </h3>
                 </div>
@@ -29,7 +37,7 @@
     <div class="container py-5">
       <div class="row">
         <div class="col-12">
-          <h1>推薦作品</h1>
+          <h3>推薦作品</h3>
         </div>
       </div>
       <swiper
@@ -62,8 +70,8 @@
                     alt="找不到人合作?"
                   />
                 </div>
-                <h1>找不到人合作?</h1>
-                <h3>成千上萬的人在這裡分享作品，尋找合作機會</h3>
+                <h3 class="fw-bold mb-3">找不到人合作?</h3>
+                <p>成千上萬的人在這裡分享作品，尋找合作機會</p>
               </div>
               <div class="col-12 col-md-4 text-center">
                 <div>
@@ -73,8 +81,8 @@
                     alt="想累積粉絲?"
                   />
                 </div>
-                <h1>想累積粉絲?</h1>
-                <h3>將你的作品分享出來，這裡有無數志同道合的朋友</h3>
+                <h3 class="fw-bold mb-3">想累積粉絲?</h3>
+                <p>將你的作品分享出來，這裡有無數志同道合的朋友</p>
               </div>
               <div class="col-12 col-md-4 text-center">
                 <div>
@@ -84,10 +92,9 @@
                     alt="約稿沒保障?"
                   />
                 </div>
-                <h1>約稿沒保障?</h1>
-                <h3>
-                  這裡有合理的交易流程，由我們把關每筆交易，讓我們成為你的傘
-                </h3>
+                <h3 class="fw-bold mb-3">約稿沒保障?</h3>
+                <p class="m-0">這裡有合理的交易流程，</p>
+                <p>由我們把關每筆交易，讓我們成為你的傘</p>
               </div>
             </div>
           </div>
@@ -97,7 +104,7 @@
     <div class="container py-5">
       <div class="row">
         <div class="col-12">
-          <h1>推薦作者</h1>
+          <h3>推薦作者</h3>
         </div>
       </div>
       <div
@@ -122,6 +129,7 @@ import UserState from '@/stores/UserState.js'
 import ArtComponent from '@/components/ArtComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'
+import Loading from 'vue-loading-overlay'
 
 const { VITE_URL, VITE_API_PATH } = import.meta.env
 
@@ -137,10 +145,12 @@ export default {
   components: {
     ArtComponent,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    Loading
   },
   data () {
     return {
+      fullPage: true,
       products: [],
       authors: [],
       page: {},
@@ -176,23 +186,15 @@ export default {
     ...mapActions(UserState, actions),
     getData (page = 1) {
       const url = `${VITE_URL}/api/${VITE_API_PATH}/products?category=作品&page=${page}`
-      console.log(url)
-      axios
-        .get(url)
-        .then((response) => {
-          this.products = response.data.products
-          this.page = response.data.pagination
-        })
-        .catch((err) => {
-          console.log(err.response.data.message)
-          // alert(err.response.data.message)
-        })
+      axios.get(url).then((response) => {
+        this.products = response.data.products
+        this.page = response.data.pagination
+      })
     },
     async getAuthorData (page = 1) {
       await this.setAdminToken()
       await this.checkUserhasArt()
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/products?category=使用者&page=${page}`
-      console.log(this.AdminToken)
       axios.defaults.headers.common.Authorization = this.AdminToken
       axios
         .get(url)
@@ -209,17 +211,11 @@ export default {
               return item.ArtQuantity > 0
             })
             this.getAuthorData(page + 1)
-            console.log('has next')
           } else {
             this.authors = Object.values(this.authors).filter((item) => {
               return item.ArtQuantity > 0
             })
-            console.log('no next')
           }
-        })
-        .catch((err) => {
-          console.log(err.response.data.message)
-          // alert(err.response.data.message)
         })
     }
   },
@@ -229,7 +225,12 @@ export default {
     this.getAuthorData()
   },
   computed: {
-    ...mapState(UserState, ['userHasLogIn', 'AdminToken', 'Alldata'])
+    ...mapState(UserState, ['userHasLogIn', 'AdminToken', 'Alldata']),
+    isLoading: {
+      get () {
+        return !this.Alldata
+      }
+    }
   }
 }
 </script>

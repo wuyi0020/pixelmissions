@@ -135,15 +135,12 @@
 </template>
 
 <script>
-// import { mapState, mapActions } from "pinia";
-// import { cartStore } from "../store/cartStore.js";
 import * as VeeValidate from 'vee-validate'
 import * as VeeValidateRules from '@vee-validate/rules'
 import * as VeeValidateI18n from '@vee-validate/i18n'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
-// import toastr from 'toastr'
 
 import axios from 'axios'
 
@@ -225,6 +222,17 @@ export default {
         })
         .then(() => {
           toastr.success('已創建訂單')
+          this.form = {
+            user: {
+              name: '',
+              email: '',
+              tel: '',
+              address: '',
+              userid: '',
+              forauthor: ''
+            },
+            message: ''
+          }
         })
         .then(() => {
           this.$router.push({ name: 'Order' })
@@ -233,8 +241,7 @@ export default {
     deletCart () {
       const carturl = `${VITE_URL}/api/${VITE_API_PATH}/admin/orders/all`
       axios.defaults.headers.common.Authorization = this.AdminToken
-      axios.delete(carturl).then((response) => {
-        console.log(response.data)
+      axios.delete(carturl).then(() => {
         toastr.success('已刪除購物車')
       })
     },

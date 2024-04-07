@@ -1,5 +1,11 @@
 <template>
   <div class="container mt-5">
+    <loading
+      v-model:active="isLoading"
+      :can-cancel="true"
+      :on-cancel="onCancel"
+      :is-full-page="fullPage"
+    />
     <h1>瀏覽作品</h1>
     <hr />
     <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-0 g-lg-4">
@@ -51,12 +57,14 @@
 import ArtComponent from '@/components/ArtComponent.vue'
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
+import Loading from 'vue-loading-overlay'
 const state = ['Alldata']
 const actions = ['getAlldata']
 export default {
   name: 'AllAuthorView',
   components: {
-    ArtComponent
+    ArtComponent,
+    Loading
   },
   data () {
     return {
@@ -90,7 +98,12 @@ export default {
     }
   },
   computed: {
-    ...mapState(UserState, state)
+    ...mapState(UserState, state),
+    isLoading: {
+      get () {
+        return !this.Alldata
+      }
+    }
   },
   mounted () {
     this.nextPage()

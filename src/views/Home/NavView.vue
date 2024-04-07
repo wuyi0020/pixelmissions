@@ -33,6 +33,7 @@
               <li class="nav-item" v-if="userHasLogIn">
                 <RouterLink class="nav-link" to="/order">委託訂單</RouterLink>
               </li>
+
               <div class="nav-item" v-if="userHasLogIn">
                 <RouterLink class="nav-link" :to="`/usercenter/${userID}`">
                   <div class="d-flex align-items-lg-center">
@@ -51,13 +52,25 @@
                   </div>
                 </RouterLink>
               </div>
+              <li class="nav-item mx-lg-3" v-if="userHasLogIn">
+                <button
+                  type="button"
+                  class="btn btn-primary rounded w-100 w-lg-auto"
+                  @click="showUploadAlert"
+                >
+                  <span class="d-block">上傳檔案</span>
+                </button>
+              </li>
+
               <div class="nav-item" v-if="userHasLogIn">
                 <button type="button" class="nav-link" @click="UserLogout()">
                   登出
                 </button>
               </div>
               <div class="nav-item" v-else>
-                <RouterLink class="nav-link" to="/login">登入</RouterLink>
+                <RouterLink class="nav-link" to="/login">
+                  <button type="button" class="btn btn-primary">登入</button>
+                </RouterLink>
               </div>
             </ul>
           </div>
@@ -113,8 +126,6 @@
 <script>
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
-// import * as router from "vue-router";
-// import toastr from "toastr";
 
 const state = [
   'userName',
@@ -134,7 +145,36 @@ const actions = [
 export default {
   name: 'FontView',
   methods: {
-    ...mapActions(UserState, actions)
+    ...mapActions(UserState, actions),
+    showUploadAlert () {
+      const swalWithBootstrapButtons = this.$swal.mixin({
+        customClass: {
+          confirmButton:
+            'btn btn-outline-primary btn-container mx-1 mx-sm-2 mx-md-3 mx-lg-5',
+          denyButton:
+            'btn btn-outline-primary btn-container mx-1 mx-sm-2 mx-md-3 mx-lg-5',
+          actions: 'flex-nowrap',
+          title: 'd-none d-sm-block'
+        },
+        buttonsStyling: false
+      })
+      swalWithBootstrapButtons
+        .fire({
+          title: '你要上傳作品還是方案？',
+          showDenyButton: true,
+          confirmButtonText: '作品',
+          denyButtonText: '方案',
+          color: 'var(--bs-primary)',
+          background: 'var(--bs-body-bg)'
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.$router.push({ name: 'UploadArtView' })
+          } else if (result.isDenied) {
+            this.$router.push({ name: 'UploadComissionView' })
+          }
+        })
+    }
   },
   computed: {
     ...mapState(UserState, state)

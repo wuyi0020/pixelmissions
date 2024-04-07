@@ -103,10 +103,6 @@
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
 import ArtComponent from '@/components/ArtComponent.vue'
-// import axios from 'axios'
-// import toastr from 'toastr'
-
-// const { VITE_URL, VITE_API_PATH } = import.meta.env
 
 const state = [
   'userName',
@@ -157,7 +153,6 @@ export default {
   },
   async mounted () {
     await this.checkUserLogin()
-    console.log(this.userHasLogIn)
     if (this.userHasLogIn) {
       await this.GetAuthorData()
     }

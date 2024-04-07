@@ -96,8 +96,6 @@
   </div>
 </template>
 <script>
-// axios
-
 import axios from 'axios'
 import UserState from '@/stores/UserState.js'
 import { mapState, mapActions } from 'pinia'
@@ -153,7 +151,6 @@ export default {
     }
   },
   mounted () {
-    // const fileInput = document.getElementById("fileInput");
     this.$refs.imgfileInput.addEventListener('change', this.imagePreview)
     this.setAdminToken()
     this.checkUserLogin()
@@ -169,7 +166,6 @@ export default {
       }
     },
     upload () {
-      console.log('upload')
       // 創建上傳用的formdata
       const formData = new FormData()
       const file = this.$refs.imgfileInput.files[0]
@@ -181,7 +177,6 @@ export default {
       axios.defaults.headers.common.Authorization = this.AdminToken
       this.ArtData.author = this.userID
       this.ArtData.time = new Date().getTime()
-      console.log(this.ArtData)
       if (this.fileUrl === '') {
         toastr.error('請選擇圖片')
         return
@@ -192,16 +187,11 @@ export default {
         .then((res) => {
           this.fileUrl = res.data.imageUrl
           this.ArtData.imageUrl = res.data.imageUrl
-          console.log(this.ArtData)
           return axios.post(uploadArtUrl, { data: this.ArtData })
         })
-        .then((res) => {
-          console.log(res)
+        .then(() => {
           this.$router.push(`/usercenter/${this.userID}`)
           toastr.success('上傳成功')
-        })
-        .catch((err) => {
-          console.log(err)
         })
     }
   },

@@ -31,6 +31,7 @@
           :src="author.imageUrl"
           alt="作者圖片"
           height="50px"
+          loading="lazy"
           class="rounded-circle object-fit-cover object-position-center"
         />
         <p

@@ -176,10 +176,6 @@ export default {
           this.Orders = []
           this.getOeder()
         })
-        .catch((err) => {
-          console.log(err)
-          tostar.error('刪除失敗')
-        })
     },
     async getOeder () {
       axios.defaults.headers.common.Authorization = this.AdminToken
