@@ -8,12 +8,6 @@
     />
     <div class="container-fluid bg bg-light bg-opacity-50 bg-summer">
       <div class="row vh-50 align-content-center m-0">
-        <!-- <div
-          v-if="!userHasLogIn"
-          class="col-12 pt-3 text-end bg-body-secondary"
-        >
-          <h3>還沒註冊？註冊取得所有功能<i class="bi bi-arrow-up"></i></h3>
-        </div> -->
         <div class="col-12">
           <div class="container">
             <div class="row align-items-center">
@@ -21,12 +15,27 @@
                 <div
                   class="position-relative w-100 h-100 bg-black bg-opacity-25 p-5"
                 >
-                  <h3 class="fs-6 fs-sm-3 text-break mw-100 fw-bold">
+                  <p class="d-none d-sm-block fs-3 text-break mw-100 fw-bold">
                     累積粉絲 尋找合作機會？
-                  </h3>
-                  <h3 class="fs-6 fs-sm-3 text-break mw-100 fw-bold">
-                    使用 Pixel Missions 滿足這一切
-                  </h3>
+                  </p>
+                  <p class="fs-3 d-sm-none text-break mw-100 fw-bold lh-1 mb-2">
+                    累積粉絲
+                  </p>
+                  <p class="fs-3 d-sm-none text-break mw-100 fw-bold lh-1">
+                    尋找合作機會？
+                  </p>
+                  <p class="fs-3 d-none d-sm-block text-break mw-100 fw-bold">
+                    趕快右上登入使用 Pixel Missions 滿足這一切
+                  </p>
+                  <p class="fs-3 d-sm-none text-break mw-100 fw-bold lh-1 mb-2">
+                    趕快右上登入使用
+                  </p>
+                  <p class="fs-3 d-sm-none text-break mw-100 fw-bold lh-1 mb-2">
+                    Pixel Missions
+                  </p>
+                  <p class="fs-3 d-sm-none text-break mw-100 fw-bold lh-1">
+                    滿足這一切
+                  </p>
                 </div>
               </div>
             </div>
@@ -40,22 +49,38 @@
           <h3>推薦作品</h3>
         </div>
       </div>
-      <swiper
-        :slidesPerView="'auto'"
-        :spaceBetween="20"
-        :pagination="{
-          clickable: true
-        }"
-        :modules="modules"
-        class="mySwiper"
-        :breakpoints="swiperOptions.breakpoints"
-      >
-        <template v-for="item in products" :key="item.id">
-          <swiper-slide>
-            <ArtComponent :item="item" :showAuthor="true" :datas="Alldata" />
-          </swiper-slide>
-        </template>
-      </swiper>
+      <div class="row">
+        <div class="col-12 p-0">
+          <swiper
+            :style="{
+              '--swiper-navigation-color': '#6ea8fe',
+              '--swiper-pagination-color': '#6ea8fe'
+            }"
+            :lazy="true"
+            :slidesPerView="'auto'"
+            :spaceBetween="20"
+            navigation
+            :pagination="{
+              clickable: true
+            }"
+            :scrollbar="{ draggable: true }"
+            :modules="modules"
+            class="mySwiper"
+            :breakpoints="swiperOptions.breakpoints"
+          >
+            <template v-for="item in products" :key="item.id">
+              <swiper-slide>
+                <ArtComponent
+                  :item="item"
+                  :showAuthor="true"
+                  :datas="Alldata"
+                  @loadDone="loadDone"
+                />
+              </swiper-slide>
+            </template>
+          </swiper>
+        </div>
+      </div>
     </div>
     <div class="container-fluid bg bg-dark-subtle">
       <div class="row min-vh-50 align-content-center">
@@ -128,8 +153,10 @@ import { mapActions, mapState } from 'pinia'
 import UserState from '@/stores/UserState.js'
 import ArtComponent from '@/components/ArtComponent.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination } from 'swiper/modules'
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules'
 import Loading from 'vue-loading-overlay'
+import 'swiper/scss'
+import 'swiper/css/bundle'
 
 const { VITE_URL, VITE_API_PATH } = import.meta.env
 
@@ -155,7 +182,9 @@ export default {
       authors: [],
       page: {},
       AuthorPage: {},
-      modules: [Navigation, Pagination],
+      isloadDone: false,
+      isLoading: true,
+      modules: [Navigation, Pagination, Scrollbar, A11y],
       swiperOptions: {
         breakpoints: {
           0: {
@@ -217,6 +246,9 @@ export default {
             })
           }
         })
+    },
+    loadDone () {
+      this.isLoading = false
     }
   },
   async mounted () {
@@ -225,12 +257,7 @@ export default {
     this.getAuthorData()
   },
   computed: {
-    ...mapState(UserState, ['userHasLogIn', 'AdminToken', 'Alldata']),
-    isLoading: {
-      get () {
-        return !this.Alldata
-      }
-    }
+    ...mapState(UserState, ['userHasLogIn', 'AdminToken', 'Alldata'])
   }
 }
 </script>
@@ -239,7 +266,19 @@ export default {
 /* 修正swiper在576px以下會出錯 */
 @media (max-width: 576px) {
   .swiper {
-    max-width: 80vw !important;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    width: 100% !important;
+    max-width: 100vw !important;
   }
+}
+.swiper-button-next {
+  right: 20px;
+  font-weight: 900;
+}
+
+.swiper-button-prev {
+  font-weight: 900;
+  left: 20px;
 }
 </style>

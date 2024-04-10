@@ -1,10 +1,12 @@
 <template>
-  <div class="card">
-    <img
-      :src="item.imageUrl"
-      class="card-img-top rounded-0 card-img"
-      alt="作品圖片"
-    />
+  <div class="card mh-100">
+    <div style="aspect-ratio: 1/1; overflow: hidden">
+      <img
+        :src="item.imageUrl"
+        class="card-img-top rounded-0 card-img mh-50"
+        alt="作品圖片"
+      />
+    </div>
     <div class="card-body border align-self-stretch bg-dark-subtle">
       <p class="mb-0 card-text border-top-0 h3">
         {{ item.title }}
@@ -15,14 +17,12 @@
       </p>
       <p
         v-if="item.category === '報價'"
-        class="mb-0 card-text text-end border-top-0 "
+        class="mb-0 card-text text-end border-top-0"
       >
         <i class="bi bi-cash"></i>
         {{ item.price }}
       </p>
-      <p
-        class="mb-0 d-flex flex-column card-text text-end border-top-0 mt-2"
-      >
+      <p class="mb-0 d-flex flex-column card-text text-end border-top-0 mt-2">
         <router-link
           class=""
           :to="{ name: 'EditArtView', params: { id: item.id } }"

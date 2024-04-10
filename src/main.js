@@ -2,18 +2,12 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-// booststrap
 import 'bootstrap/dist/css/bootstrap.css'
-// bootstrap js
 import 'bootstrap'
 
-// vue-loading-overlay
 import 'vue-loading-overlay/dist/css/index.css'
-// boostrap icon
 import 'bootstrap-icons/font/bootstrap-icons.css'
-// css
 import '@/assets/css/main.scss'
-// toastr
 import 'toastr/build/toastr.css'
 
 import { createApp, markRaw } from 'vue'

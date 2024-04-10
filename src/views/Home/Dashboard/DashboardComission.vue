@@ -1,23 +1,21 @@
 <template>
-  <div>
-    <div class="container pt-5">
-      <div class="row">
-        <div class="col-12">
-          <RouterLink
-            :to="{ name: 'UserCenter', params: { userid: `${userID}` } }"
-            class="text text-white link-underline link-underline-opacity-0 d-flex"
-          >
-            <h1><i class="bi bi-caret-left-fill h1 text-white-50"></i>編輯方案</h1>
-          </RouterLink>
-          <hr />
-        </div>
+  <div class="container pt-5">
+    <div class="row">
+      <div class="col-12">
+        <RouterLink
+          :to="{ name: 'UserCenter', params: { userid: `${userID}` } }"
+          class="text text-white link-underline link-underline-opacity-0 d-flex"
+        >
+          <p class="fs-4 m-0">
+            <i class="bi bi-caret-left-fill me-1 text-white-50"></i>編輯方案
+          </p>
+        </RouterLink>
+        <hr class="mb-4"/>
       </div>
-      <div
-        class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-0 g-md-2 gx-lg-4"
-      >
-        <div v-for="item in userCommission" :key="item.id">
-          <EditArtComponent :item="item" @updated="getUserArtWork" />
-        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-0 g-md-2 gx-lg-4">
+      <div v-for="item in userCommission" :key="item.id">
+        <EditArtComponent :item="item" @updated="getUserArtWork" />
       </div>
     </div>
   </div>

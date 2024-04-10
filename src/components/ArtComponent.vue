@@ -6,9 +6,9 @@
         class="card-img-top mh-100 rounded-0 object-fit-contain object-position-center w-100 m-0 ArtComponent__image"
         loading="lazy"
         alt="作品圖片"
+        @load="loadDone"
       />
     </div>
-    <!-- <div class="w-100 pt-100 position-relative"></div> -->
 
     <div class="card-body flex-grow-0 align-self-stretch bg-dark-subtle">
       <p
@@ -116,7 +116,10 @@ export default {
     ...mapState(UserState, ['Alldata'])
   },
   methods: {
-    ...mapActions(UserState, ['getAlldata'])
+    ...mapActions(UserState, ['getAlldata']),
+    loadDone () {
+      this.$emit('loadDone')
+    }
   },
   async mounted () {
     if (!this.datas) {

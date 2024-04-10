@@ -1,4 +1,10 @@
 <template>
+  <loading
+    v-model:active="isLoading"
+    :can-cancel="true"
+    :on-cancel="onCancel"
+    :is-full-page="fullPage"
+  />
   <div class="container">
     <div class="row">
       <h3 class="mt-5">委託訂單確認</h3>
@@ -20,6 +26,7 @@
                 :src="products.product.imageUrl"
                 class="img-fluid rounded-start-0 ratio-1x1 mh-100"
                 alt="方案"
+                @load="loadDone"
               />
             </div>
             <div class="col-md-8 d-flex flex-column">
@@ -38,10 +45,10 @@
                     Users[products.product.author].title
                   }}</span>
                 </div>
-                <p class="card-title h3">
+                <p class="card-title h3 my-2">
                   {{ products.product.title }}
                 </p>
-                <p class="mb-0">
+                <p class="mb-0 my-2">
                   {{ products.product.description }}
                 </p>
                 <p class="">
@@ -50,7 +57,7 @@
               </div>
               <div class="">
                 <span class=""> {{ products.total }} TWD</span>
-                <span v-if="order.is_paid" class="text-success"
+                <span v-if="order.is_paid" class="ms-2 text-success-emphasis"
                   >(付款完成)</span
                 >
               </div>
@@ -85,7 +92,7 @@
                 aria-expanded="false"
                 :aria-controls="`collapseID${order.id}`"
               >
-                訂單資料<i class="bi bi-arrow-down-circle"></i>
+                訂單資料 <i class="bi bi-arrow-down-circle"></i>
               </h3>
               <hr />
               <div :id="`collapseID${order.id}`" class="collapse">
@@ -129,6 +136,7 @@ import UserState from '@/stores/UserState.js'
 import axios from 'axios'
 import moment from 'moment'
 import tostar from 'toastr'
+import Loading from 'vue-loading-overlay'
 
 const state = [
   'userName',
@@ -147,8 +155,12 @@ export default {
       Orders: [],
       ThisUserOrders: [],
       pagination: {},
-      Users: {}
+      Users: {},
+      isLoading: true
     }
+  },
+  components: {
+    Loading
   },
   methods: {
     ...mapActions(UserState, actions),
@@ -205,6 +217,9 @@ export default {
           this.Users[item.id] = item
         }
       })
+    },
+    loadDone () {
+      this.isLoading = false
     }
   },
   async mounted () {
@@ -225,6 +240,4 @@ export default {
   }
 }
 </script>
-<style>
-
-</style>
+<style></style>

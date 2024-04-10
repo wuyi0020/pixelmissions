@@ -38,15 +38,13 @@
               尚未收藏作品
             </div>
           </div>
-          <div class="text mx-2"> | </div>
+          <div class="text mx-2">|</div>
           <router-link
             :to="{ name: 'userFollowUser' }"
             v-if="userData.followList"
             class="link-underline link-underline-opacity-0"
           >
-            <div
-              class="text-primary link-underline link-underline-opacity-0"
-            >
+            <div class="text-primary link-underline link-underline-opacity-0">
               追隨中 {{ userData.followList.length }}
             </div>
           </router-link>
@@ -60,7 +58,7 @@
         </div>
       </div>
       <div class="row pt-3">
-        <div class="col-12 px-5">
+        <div class="col-12">
           <p>{{ userData.description }}</p>
         </div>
       </div>
@@ -84,44 +82,46 @@
       <div class="col border p-0 position-relative">
         <router-link
           :to="{ name: 'EditUserView', params: { id: userID } }"
-          class="btn text-center stretched-link"
+          class="btn text-center fs-5 stretched-link"
           type="button"
-          ><h3 class="m-0 p-0">修改使用者資料</h3>
+          ><p class="m-0 p-0">編輯使用者資料</p>
         </router-link>
       </div>
       <div class="col border p-0 position-relative">
         <router-link
           :to="{ name: 'DashboardComission', params: { id: userID } }"
-          class="btn text-center stretched-link"
+          class="btn text-center fs-5 stretched-link"
           type="button"
-          ><h3 class="m-0 p-0">修改方案</h3>
+          ><p class="m-0 p-0">編輯方案</p>
         </router-link>
       </div>
       <div class="col border p-0 position-relative">
         <router-link
           :to="`/dashboard/art/${userID}`"
-          class="btn text-center stretched-link"
+          class="btn text-center fs-5 stretched-link"
           type="button"
-          ><h3 class="m-0">修改作品</h3>
+          ><p class="m-0">編輯作品</p>
         </router-link>
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <h1 class="pt-3">作品</h1>
+        <h3 class="pt-5">作品</h3>
         <hr />
       </div>
     </div>
-    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-0 g-md-2 gx-lg-4">
+    <div
+      class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-0 g-md-2 gx-lg-4 pb-3"
+    >
       <div v-for="item in userArtWork" :key="item.id">
-        <ArtComponent :item="item" />
+        <ArtComponent :item="item" @loadDone="loadDone" />
       </div>
     </div>
     <div class="row">
       <div class="col-12">
-        <h1 class="pt-3 d-inline-block">贊助/約稿方案</h1>
+        <h3 class="pt-5 d-inline-block">贊助/約稿方案</h3>
         <router-link
-          :to="{ name: 'ComissionView', params: { id: thisUserID } }"
+          :to="{ name: 'ComissionView', params: { id: `${thisUserID}` } }"
           class="text-decoration-none"
         >
           <span class="text-primary"> 查看全部 </span>
@@ -129,22 +129,12 @@
         <hr />
       </div>
     </div>
-    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-md-3 gx-lg-4">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-md-3 gx-lg-4 pb-3">
       <div class="col" v-for="item in userComission" :key="item.id">
         <ArtComponent :item="item" :showPrice="true" class="h-100" />
       </div>
     </div>
   </div>
-
-  <!-- <div class="container">
-    <p style="word-break: break-all">
-      {{ userData }}
-    </p>
-    <hr />
-    <p style="word-break: break-all">
-      {{ userArtWork }}
-    </p>
-  </div> -->
 </template>
 
 <script>
@@ -167,7 +157,8 @@ export default {
       userData: {},
       userArtWork: [],
       userComission: [],
-      thisUserID: this.$route.params.userid
+      thisUserID: this.$route.params.userid,
+      isLoading: true
     }
   },
   components: {
@@ -200,15 +191,13 @@ export default {
           return null
         })
         .slice(0, 3)
+    },
+    loadDone () {
+      this.isLoading = false
     }
   },
   computed: {
-    ...mapState(UserState, state),
-    isLoading: {
-      get () {
-        return !this.Alldata
-      }
-    }
+    ...mapState(UserState, state)
   },
   mounted () {
     this.checkUserLogin()

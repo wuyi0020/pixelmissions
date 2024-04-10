@@ -1,25 +1,43 @@
 <template>
+  <loading
+    v-model:active="isLoading"
+    :can-cancel="true"
+    :on-cancel="onCancel"
+    :is-full-page="fullPage"
+  />
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <h3 class="h3 pt-5">登記方案</h3>
+      <div class="col-12 pt-5">
+        <router-link
+          :to="{
+            name: 'ComissionView',
+            params: { userid: `${ThisComissionData.id}` }
+          }"
+          class="link-underline link-underline-opacity-0 text-white"
+        >
+          <div class="d-flex align-items-center">
+            <i class="bi bi-caret-left-fill fs-1 text-white-50"></i>
+            <p class="h3 m-0">登記方案</p>
+          </div>
+        </router-link>
         <hr />
         <div class="container">
           <div class="row">
-            <div class="col-12 p-5 bg bg-dark-subtle rounded-5">
+            <div class="col-12 p-5 pb-0 pb-md-5 bg bg-dark-subtle rounded-5">
               <div class="row g-5">
                 <div class="col-md-4">
                   <img
                     :src="ThisComissionData.imageUrl"
                     class="img-fluid rounded-start-0 ratio-1x1 mh-100"
                     alt="方案"
+                    @load="loadDone"
                   />
                 </div>
                 <div class="col-md-8 d-flex flex-column">
                   <div class="card-body">
-                    <h1 class="card-title h3">
+                    <h3 class="card-title h3">
                       {{ ThisComissionData.title }}
-                    </h1>
+                    </h3>
                     <p class="text-secondary mb-0">
                       {{ ThisComissionData.description }}
                     </p>
@@ -141,6 +159,7 @@ import * as VeeValidateI18n from '@vee-validate/i18n'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
+import Loading from 'vue-loading-overlay'
 
 import axios from 'axios'
 
@@ -189,13 +208,17 @@ export default {
         },
         message: ''
       },
-      ThisComissionData: {}
+      ThisComissionData: {},
+      isLoading: true
     }
   },
   methods: {
     // 紀錄 把流程改成 按下購買 帶著物品ID進到購物車頁面 填完表單 按下結帳 直接加入購物車再結帳 這樣就不會有問題 外部的購物車改成用產品API 儲存購物車資料
     // {category: cart , cart : [userid : {productid: {qty: 1} , productid: {qty: 1}}, userid : {productid: {qty: 1}}]}
     ...mapActions(UserState, actions),
+    loadDone () {
+      this.isLoading = false
+    },
     async createOrder () {
       const Thisproductid = this.$route.params.id
       const authorid = this.Alldata[Thisproductid].author
@@ -261,7 +284,8 @@ export default {
   components: {
     VField: VeeValidate.Field,
     VForm: VeeValidate.Form,
-    ErrorMessage: VeeValidate.ErrorMessage
+    ErrorMessage: VeeValidate.ErrorMessage,
+    Loading
   }
 }
 </script>

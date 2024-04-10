@@ -4,7 +4,7 @@
       <div class="col-12 col-md-9 col-lg-6">
         <div class="card mt-3">
           <div class="card-body">
-            <h1 class="card-title">
+            <h3 class="card-title">
               <RouterLink
                 v-if="artAuthor && art.category === '作品'"
                 :to="{
@@ -31,7 +31,7 @@
                   編輯方案
                 </span>
               </RouterLink>
-            </h1>
+            </h3>
             <div
               class="justify-content-center"
               :class="{
@@ -53,7 +53,7 @@
                     class="d-flex justify-content-center align-items-center btn btn-outline-secondary rounded-3"
                   >
                     <input type="file" ref="imgfileInput" id="fileInput" />
-                    <h1
+                    <h3
                       class="m-0 p-0"
                       :class="{
                         'd-block': art.imageUrl == '',
@@ -61,7 +61,7 @@
                       }"
                     >
                       +
-                    </h1>
+                    </h3>
                     <img
                       :src="art.imageUrl"
                       ref="imagePreview2"
@@ -126,7 +126,7 @@
             <div class="mt-3 d-flex justify-content-between">
               <button
                 type="button"
-                class="btn btn-danger btn-lg"
+                class="btn btn-outline-primary btn-lg"
                 @click="cancel"
               >
                 <i class="bi bi bi-x-circle-fill me-1"></i>

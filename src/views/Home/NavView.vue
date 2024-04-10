@@ -3,7 +3,7 @@
     <div class="navbar-top-sticky">
       <nav class="navbar navbar-expand-lg navbar-dark border-bottom">
         <div class="container-fluid">
-          <RouterLink to="/" class="navbar-brand">Pixel Missions</RouterLink>
+          <RouterLink to="/" class="navbar-brand fs-3">Pixel Missions</RouterLink>
           <button
             class="navbar-toggler"
             type="button"
@@ -17,9 +17,6 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav navbar-nav-scroll">
-              <!-- <li class="nav-item">
-              <RouterLink class="nav-link" to="/about">關於我們</RouterLink>
-            </li> -->
               <li class="nav-item">
                 <RouterLink class="nav-link" to="/author">瀏覽作者</RouterLink>
               </li>

@@ -7,6 +7,16 @@ const routes = [
     component: () => import('@/views/Home/NavView.vue'),
     children: [
       {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/Home/UserLogin.vue')
+      },
+      {
+        path: '/register',
+        name: 'register',
+        component: () => import('@/views/Home/UserRegister.vue')
+      },
+      {
         path: '',
         name: 'Home',
         component: () => import('@/views/Home/HomeView.vue')
@@ -128,16 +138,7 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/Home/UserLogin.vue')
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: () => import('@/views/Home/UserRegister.vue')
-  },
+
   {
     path: '/admin',
     component: () => import('@/views/Admin/AdminView.vue'),

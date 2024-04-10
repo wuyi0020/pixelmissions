@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-12">
-        <h1>上傳作品</h1>
+        <h3>上傳作品</h3>
       </div>
       <div class="justify-content-center d-flex">
         <div
@@ -19,19 +19,19 @@
               class="d-flex justify-content-center align-items-center btn btn-outline-secondary rounded-3"
             >
               <input type="file" ref="imgfileInput" id="fileInput" />
-              <h1
-                class="m-0 p-0"
+              <p
+                class="m-0 p-0 fs-1"
                 :class="{
                   'd-block': fileUrl == '',
                   'd-none': !(fileUrl == '')
                 }"
               >
                 +
-              </h1>
+              </p>
               <img
                 :src="fileUrl"
                 ref="imagePreview2"
-                class="mw-100 ratio-1x1"
+                class="mw-100 ratio-1x1 imagePreview"
               />
             </label>
           </div>
@@ -63,7 +63,6 @@
             name="作品名稱"
             class="invalid-feedback"
           ></error-message>
-          <!-- <v-field  class="form-control" v-model="ArtData.title"></v-field> -->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">作品描述</span>
@@ -214,5 +213,9 @@ export default {
 }
 input[type='file'] {
   display: none;
+}
+.imagePreview {
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>

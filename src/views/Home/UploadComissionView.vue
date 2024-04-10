@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <div class="row">
       <div class="col-12">
-        <h1>上傳報價</h1>
+        <h3>上傳報價</h3>
       </div>
       <div class="justify-content-center align-items-center flex-column d-flex">
         <div
@@ -22,10 +22,10 @@
               <img
                 :src="fileUrl"
                 ref="imagePreview2"
-                class="mw-100 ratio-1x1"
+                class="mw-100 ratio-1x1 imagePreview"
               />
               <input type="file" ref="imgfileInput" id="fileInput" />
-              <h1
+              <h3
                 class="m-0 p-0"
                 :class="{
                   'd-block': fileUrl == '',
@@ -34,7 +34,7 @@
                 }"
               >
                 +
-              </h1>
+              </h3>
             </label>
           </div>
         </div>
@@ -85,7 +85,6 @@
             name="報價單名稱"
             class="invalid-feedback"
           ></error-message>
-          <!-- <v-field  class="form-control" v-model="ArtData.title"></v-field> -->
         </div>
         <div class="input-group mb-3">
           <span class="input-group-text" id="basic-addon1">報價單描述</span>
@@ -149,8 +148,6 @@
   </div>
 </template>
 <script>
-// axios
-
 import axios from 'axios'
 import UserState from '@/stores/UserState.js'
 import { mapState, mapActions } from 'pinia'
@@ -272,5 +269,9 @@ export default {
 }
 input[type='file'] {
   display: none;
+}
+.imagePreview {
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>

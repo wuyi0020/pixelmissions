@@ -1,10 +1,16 @@
 <template>
+  <loading
+    v-model:active="isLoading"
+    :can-cancel="true"
+    :on-cancel="onCancel"
+    :is-full-page="fullPage"
+  />
   <div class="container mt-5">
     <h1>瀏覽作者</h1>
     <hr />
     <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-0 g-lg-4">
       <div v-for="author in authors" :key="author.id">
-        <ArtComponent :item="author" :showUpload="true" />
+        <ArtComponent :item="author" :showUpload="true"  @loadDone="loadDone"/>
       </div>
     </div>
 
@@ -52,12 +58,14 @@
 import ArtComponent from '@/components/ArtComponent.vue'
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
+import Loading from 'vue-loading-overlay'
 const state = ['Alldata']
 const actions = ['getAlldata', 'checkUserhasArt']
 export default {
   name: 'AllAuthorView',
   components: {
-    ArtComponent
+    ArtComponent,
+    Loading
   },
   data () {
     return {
@@ -70,7 +78,8 @@ export default {
         currentPage: 1,
         hasNext: false,
         totalPage: 0
-      }
+      },
+      isLoading: true
     }
   },
   methods: {
@@ -88,6 +97,9 @@ export default {
       const min = this.pages.current * this.pages.eachOfPage + this.pages.min
       const max = min + this.pages.eachOfPage
       this.authors = this.authors.slice(min, max)
+    },
+    loadDone () {
+      this.isLoading = false
     }
   },
   computed: {

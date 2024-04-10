@@ -9,7 +9,7 @@
     <div class="row bg-dark-subtle topband bg-5dot" id="topband"></div>
   </div>
   <div class="container">
-    <div class="row pt-0">
+    <div class="row pt-3">
       <div class="col-12 d-flex align-items-center">
         <RouterLink :to="{ name: 'UserCenter', params: { id: `${authorID}` } }">
           <i class="bi bi-caret-left-fill h1 text-white-50"></i>
@@ -30,31 +30,35 @@
           <div class="m-0 p-0 h3">{{ authorData.title }}</div>
         </RouterLink>
       </div>
-      <div class="row pt-3">
-        <div class="col-12 px-5">
-          <p>{{ authorData.description }}</p>
-        </div>
-      </div>
     </div>
   </div>
 
-  <div class="container">
+  <div class="container pt-5">
     <div class="row">
       <div class="col-12">
         <div class="h3 pt-3">收藏的作品</div>
       </div>
-      <div
-        class="row row-cols-2 row-cols-md-3 row-cols-xxl-5 g-0 g-md-2 gx-lg-4"
-      >
-        <div v-for="item in FollowList" :key="item.id">
-          <ArtComponent :item="item" :showAuthor="true" />
+      <div class="col-12">
+        <div
+          class="row row-cols-2 row-cols-md-3 row-cols-xxl-5 g-0 g-md-2 gx-lg-4"
+        >
+          <div v-for="item in FollowList" :key="item.id">
+            <ArtComponent
+              :item="item"
+              :showAuthor="true"
+              @loadDone="loadDone"
+            />
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="d-flex justify-content-center">
+  <div class="container">
+    <div class="border"></div>
+  </div>
+  <div class="d-flex justify-content-center pt-3">
     <nav>
-      <ul class="pagination">
+      <ul class="pagination m-0">
         <li class="page-item" :class="{ disabled: !pages.current }">
           <button
             type="button"
@@ -119,7 +123,8 @@ export default {
         currentPage: 1,
         hasNext: false,
         totalPage: 0
-      }
+      },
+      isLoading: true
     }
   },
   components: {
@@ -143,6 +148,13 @@ export default {
       const start = this.pages.current * this.pages.eachOfPage
       const end = start + this.pages.eachOfPage
       this.FollowList = this.FollowList.slice(start, end)
+    },
+    loadDone () {
+      this.isLoading = false
+    },
+    nextPage (page) {
+      this.isLoading = true
+      this.GetAuthorData(page)
     }
   },
   async mounted () {
@@ -152,12 +164,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(UserState, state),
-    isLoading: {
-      get () {
-        return !this.Alldata
-      }
-    }
+    ...mapState(UserState, state)
   }
 }
 </script>

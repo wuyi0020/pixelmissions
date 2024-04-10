@@ -9,8 +9,8 @@
                 :to="{ name: 'UserCenter', params: { userid: User.id } }"
                 class="text text-white link-underline link-underline-opacity-0 d-flex"
               >
-                <i class="bi bi-caret-left-fill h1 text-white-50"></i>
-                <h1 class="card-title">編輯使用者資料</h1>
+                <i class="bi bi-caret-left-fill fs-4 text-white-50"></i>
+                <p class="card-title fs-4 mb-3">編輯使用者資料</p>
               </RouterLink>
             </div>
             <div
@@ -34,15 +34,15 @@
                     class="d-flex justify-content-center align-items-center btn btn-outline-secondary rounded-3"
                   >
                     <input type="file" ref="imgfileInput" id="fileInput" />
-                    <h1
-                      class="m-0 p-0"
+                    <p
+                      class="m-0 p-0 fs-1"
                       :class="{
                         'd-block': User.imageUrl == '',
                         'd-none': !(User.imageUrl == '')
                       }"
                     >
                       +
-                    </h1>
+                    </p>
                     <img
                       :src="User.imageUrl"
                       ref="imagePreview2"
@@ -108,7 +108,7 @@
             <div class="mt-3 d-flex justify-content-between">
               <button
                 type="button"
-                class="btn btn-danger btn-lg"
+                class="btn btn-outline-primary btn-lg"
                 @click="cancel"
               >
                 <i class="bi bi bi-x-circle-fill me-1"></i>

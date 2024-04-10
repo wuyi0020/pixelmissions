@@ -6,11 +6,11 @@
       :on-cancel="onCancel"
       :is-full-page="fullPage"
     />
-    <h1>瀏覽作品</h1>
+    <h3>瀏覽作品</h3>
     <hr />
     <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-0 g-lg-4">
       <div v-for="author in authors" :key="author.id">
-        <ArtComponent :item="author" :showAuthor="true" :datas="Alldata" />
+        <ArtComponent :item="author" :showAuthor="true" :datas="Alldata"  @loadDone="loadDone"/>
       </div>
     </div>
     <hr />
@@ -77,7 +77,8 @@ export default {
         currentPage: 1,
         hasNext: false,
         totalPage: 0
-      }
+      },
+      isLoading: true
     }
   },
   methods: {
@@ -95,15 +96,13 @@ export default {
       const min = this.pages.current * this.pages.eachOfPage + this.pages.min
       const max = min + this.pages.eachOfPage
       this.authors = this.authors.slice(min, max)
+    },
+    loadDone () {
+      this.isLoading = false
     }
   },
   computed: {
-    ...mapState(UserState, state),
-    isLoading: {
-      get () {
-        return !this.Alldata
-      }
-    }
+    ...mapState(UserState, state)
   },
   mounted () {
     this.nextPage()

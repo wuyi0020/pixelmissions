@@ -4,27 +4,40 @@
   </div>
   <div class="container">
     <div class="row pt-0">
-      <div class="col-12 d-flex align-items-center">
-        <div class="me-2 headeimg" style="width: 100px; height: 100px">
-          <img
-            :src="authorData.imageUrl"
-            class="rounded-circle object-fit-cover w-100 h-100"
-            alt="作者"
-          />
+      <div class="col-12 d-flex align-items-center position-relative mt-3">
+        <div class="d-flex align-items-center position-relative">
+          <i class="bi bi-caret-left-fill fs-1 text-white-50"></i>
+          <div class="me-2">
+            <img
+              :src="authorData.imageUrl"
+              class="rounded-circle object-fit-cover m-0 p-0"
+              alt="作者"
+              style="width: 60px; height: 60px"
+            />
+          </div>
+          <router-link
+            :to="{
+              name: 'UserCenter',
+              params: { userid: `${authorData.id}` }
+            }"
+            class="stretched-link"
+          ></router-link>
         </div>
-        <div>
-          <h3>{{ authorData.title }}</h3>
-        </div>
-      </div>
-      <div class="row pt-3">
-        <div class="col-12 px-5">
-          <p>{{ authorData.description }}</p>
+        <div class="position-relative">
+          <p class="m-0 fs-3">{{ authorData.title }}</p>
+          <router-link
+            :to="{
+              name: 'UserCenter',
+              params: { userid: `${authorData.id}` }
+            }"
+            class="stretched-link"
+          ></router-link>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="container">
+  <div class="container mt-5">
     <div class="row">
       <div class="col-12">
         <h3 class="pt-3">所有方案</h3>

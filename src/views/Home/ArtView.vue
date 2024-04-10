@@ -1,13 +1,10 @@
 <template>
-  <!-- <div class=" vh-100 vw-100" v-if="condition">
-
-  </div> -->
   <div class="container h-100 pt-5" v-if="!NotFund">
     <div class="row">
       <div
         class="col-12 rounded-top-4 col-md-9 bg-dark-subtle rounded-top-2 text-center"
       >
-        <img width="500" class="mw-100" :src="art.imageUrl" :alt="art.id" />
+        <img class="mw-100 artMaxHight" :src="art.imageUrl" :alt="art.id" />
       </div>
       <div class="col-3 d-none d-sm-none d-md-block">
         <div class="d-flex position-relative align-items-center">
@@ -17,7 +14,7 @@
             class="rounded-circle"
             alt="作者"
           />
-          <p class="px-2 m-0 text-center user-select-none">
+          <p class="px-2 m-0 text-center user-select-none fs-5">
             {{ author.title }}
           </p>
           <router-link
@@ -40,7 +37,7 @@
         </div>
         <div class="pt-2">
           <router-link
-            :to="`/usercomission/${userID}`"
+            :to="`/usercomission/${author.id}`"
             class="btn btn-outline-primary w-100 rounded-pill text-white"
             >查看約稿方案</router-link
           >
@@ -90,8 +87,8 @@
               class="rounded-circle"
               alt="作者"
             />
-            <p class="px-2 m-0 text-center user-select-none">
-              {{ author.title }} {{ author.fans }}
+            <p class="px-2 m-0 text-center fs-5 user-select-none">
+              {{ author.title }} <span class="text fs-6">關注者{{ author.fans }}</span>
             </p>
             <a
               href=""
@@ -152,20 +149,13 @@
   <div class="container h-100" v-else>
     <div class="row justify-content-center">
       <div class="col-12 col-md-9 bg-dark-subtle flex-grow-1">
-        <h1 class="user-select-none">找不到作品</h1>
+        <h3 class="user-select-none">找不到作品</h3>
         <router-link role="button" to="/" class="btn btn-primary"
           >回首頁</router-link
         >
       </div>
     </div>
   </div>
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-9">
-        {{ art }}
-      </div>
-    </div>
-  </div> -->
 </template>
 <script>
 import axios from 'axios'
@@ -332,5 +322,8 @@ export default {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
   transform: translateY(-5px) scale(1.05);
   transition: transform 0.3s;
+}
+.artMaxHight{
+  max-height: 80vh;
 }
 </style>
