@@ -66,7 +66,6 @@ export default defineStore('UserState', {
     async AdminTokenCheck (NeedCheckUserLogin = false) {
       const token = await this.setAdminToken()
       this.AdminToken = this.getCookie('AdminToken')
-      // this.RegToken = this.getCookie('RegToken')
       this.userID = this.getCookie('UserID')
       // 如果已登入就跳過登入檢查，並跳轉至user頁面
       if (NeedCheckUserLogin && this.userID && this.AdminToken) {

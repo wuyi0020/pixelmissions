@@ -57,7 +57,6 @@
 </template>
 
 <script>
-// 引用axios
 
 import { mapState, mapActions } from 'pinia'
 import UserState from '@/stores/UserState.js'
