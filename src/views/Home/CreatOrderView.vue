@@ -45,7 +45,7 @@
                       {{ ThisComissionData.content }}
                     </p>
                   </div>
-                  <div class="mb-5">
+                  <div class="mb-5 fs-2">
                     <span class=""> {{ ThisComissionData.price }} TWD</span>
                   </div>
                 </div>

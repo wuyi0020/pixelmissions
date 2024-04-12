@@ -50,7 +50,7 @@
     </div>
   </div>
   <div class="container">
-    <div class="border"></div>
+    <div class=""></div>
   </div>
   <div class="d-flex justify-content-center">
     <nav>

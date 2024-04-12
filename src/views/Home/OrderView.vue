@@ -55,8 +55,8 @@
                   {{ products.product.content }}
                 </p>
               </div>
-              <div class="">
-                <span class=""> {{ products.total }} TWD</span>
+              <div class="mb-5">
+                <span class="fs-2"> {{ products.total }} TWD</span>
                 <span v-if="order.is_paid" class="ms-2 text-success-emphasis"
                   >(付款完成)</span
                 >

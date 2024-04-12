@@ -348,6 +348,7 @@ export default {
           tostar.success('更新付款狀態成功')
           if (orderModal) {
             orderModal.hide()
+            this.tempOrder = {}
           }
           this.getOrders(this.currentPage)
         })
