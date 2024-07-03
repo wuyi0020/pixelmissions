@@ -47,6 +47,10 @@ export default defineStore('UserState', {
     },
     async setAdminToken () {
       let token = this.getCookie('AdminToken')
+      if (token) {
+        // 如果已經有token，直接返回
+        return token
+      }
       // 取得token
       const AdminloginData = {
         username: VITE_ADMIN_USERNAME,
@@ -54,13 +58,11 @@ export default defineStore('UserState', {
       }
       const tokenUrl = `${VITE_URL}/admin/signin`
       // 登入取得後端必要token
-      axios.post(tokenUrl, AdminloginData).then((res) => {
-        const { expired } = res.data
-        token = res.data.token
-        document.cookie = `AdminToken=${token};expires=${new Date(expired)}; path=/`
-        this.AdminToken = token
-        return token
-      })
+      const res = await axios.post(tokenUrl, AdminloginData)
+      const { expired } = res.data
+      token = res.data.token
+      document.cookie = `AdminToken=${token};expires=${new Date(expired)}; path=/`
+      this.AdminToken = token
       return token
     },
     async AdminTokenCheck (NeedCheckUserLogin = false) {
@@ -192,7 +194,7 @@ export default defineStore('UserState', {
         token = await this.setAdminToken()
       }
       const url = `${VITE_URL}/api/${VITE_API_PATH}/admin/products/all`
-      await axios
+      const res = await axios
         .get(url, {
           headers: {
             Authorization: `${token}`
@@ -201,8 +203,10 @@ export default defineStore('UserState', {
         .then((res) => {
           this.Alldata = res.data.products
         })
-
-      return this.Alldata
+        .finally(() => {
+          return this.Alldata
+        })
+      return res
     },
     async updateUserArtQuantity (authorID, needGetAlldata = false) {
       if (needGetAlldata) {
